@@ -34,7 +34,7 @@ var lengthOfLongestSubstring = function(s) {
        return s.length;
    }
    for (let i = 0; i < s.length; i++) {
-       if (!hash[s[i]]) {
+       if (hash[s[i]] == null) {
            curr++; 
        } else {
            curr = Math.min(i - hash[s[i]], curr + 1);
