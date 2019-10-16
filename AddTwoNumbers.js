@@ -18,11 +18,8 @@ Explanation: 342 + 465 = 807.
  *     this.next = null;
  * }
  */
-/**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- */
+
+ 
 var addTwoNumbers = function(l1, l2) {
   let List = new ListNode(0);
   let head = List;
