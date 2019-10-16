@@ -30,4 +30,4 @@ var twoSum = function(nums, target) {
 //Inputs: array of nums, target 
 //Outputs: array with two nums that add up to target
 //Constraints: cannot use same num
-//Edge Cases: 
+//Edge Cases: none
