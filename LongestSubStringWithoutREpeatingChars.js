@@ -20,3 +20,32 @@ Explanation: The answer is "wke", with the length of 3.
 
 */
 
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+  let max = 0; 
+  let curr = 0; 
+  let hash = {};
+   
+   //edge case
+   if (s.length < 2) {
+       return s.length;
+   }
+   for (let i = 0; i < s.length; i++) {
+       if (!hash[s[i]]) {
+           curr++; 
+       } else {
+           curr = Math.min(i - hash[s[i]], curr + 1);
+       }
+       max = Math.max(max, curr); 
+       hash[s[i]] = i; 
+   }
+   return max;
+};
+   
+//Time: O(N)
+//Space: O(N) - # number of letters in string 
+
+//hash: { char: index }
