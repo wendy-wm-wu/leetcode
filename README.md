@@ -26,5 +26,21 @@ Angular's Verdict: more powerful, feature packed b/c of full MVC architecture, a
 
 React's Verdict: lightweight and features virtual DOM; lightning fast for web apps that render large amounts of data but only contains View component - you need to provide own controller and model 
 
+### Describe some strategies for handling high traffic. What is likely to fail? How can you design your system to prevent those failures?
+
+- Spin up a virtual cluster of web servers utilizing child processes on each instance to take advantage of multithreading.
+- Funnel all traffic through a load balancer
+- Check requests to load balancer against a rate limiter service to ensure the request is allowed and avoid DDOS attacks.
+- Load balancer spreads traffic amongst several distinct web servers (all comprised of virtual clusters).
+- Host static assets on a CDN to decrease load on server.
+- Cache most-requested data to avoid excessive database reads.
+- Add database write operations to a queue to prevent overloading and data loss in the event of a db failure.
+- Shard databases: ea shard is held on a separate database server instance to spread load
+- Mirror shards to boost fault/failure tolerance and allow concurrent reads across shards.
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/database%20sharding.png"Logo Title Text 1")
+
+
+
 
 
