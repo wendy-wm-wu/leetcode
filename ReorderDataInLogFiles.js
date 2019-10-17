@@ -31,5 +31,16 @@ logs[i] is guaranteed to have an identifier, and a word after the identifier.
  * @return {string[]}
  */
 var reorderLogFiles = function(logs) {
-    
+  let letter = [], digit = [];
+  for(let v of logs) {
+      if(v.split(" ")[1].charAt(0) >= '0' && v.split(" ")[1].charAt(0) <= '9'){
+          digit.push(v);
+      } else {
+          letter.push(v);
+      }
+  }
+  letter.sort(function (a, b) {
+      return a.split(" ")[1].localeCompare(b.split(" ")[1]) || a.split(" ")[2].localeCompare(b.split(" ")[2])
+  })
+  return letter.concat(digit);
 };
