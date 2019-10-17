@@ -16,3 +16,24 @@ A solution set is:
 ]
 */
 
+var threeSum = function(nums) {
+  let curr = 0; 
+  let sum = 0; 
+  let output = [];
+  
+  if (nums.length <= 0) {
+      return [];
+  }
+  let helper = function(curr, arr) {
+      //base case 
+      if (curr[0] + curr[1] + curr[2] === 0 && curr.length === 3) {
+          output.push(curr);
+          return;
+      }
+      for (let i = 0; i < nums.length; i++) {
+          curr.push(nums[i]);
+      }
+  }
+  helper([], nums);
+  return output; 
+};
