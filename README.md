@@ -12,13 +12,15 @@ Regular declarative markup (regular HTML) can be mixed and matched in many ways 
 
 ### Angular.js vs React
 
-								Angular							React
-Age                         	6 yrs    						2 yrs
-Extensibility                   yes								yes
-speed  							1.35s 							310ms
-DOM 							browser		  virtual; only renders changed data
-Architecture					full MVC				just View component
-Structure + Components       HTML, JS, CSS	  same; can combine HTML & JS - JSX
+| 		       	| Angular       | React |
+| ------------- |:-------------:| -----:|
+| Age           | 6 yrs			 | 2 yrs |
+| Extensibility | yes    |   yes|
+| Speed         | 1.35s     |    310ms |
+| DOM           | browser     |   virtual; only renders changed data |
+| Architecture  | full MVC      |    just View component |
+| Structure & Components  | HTML, JS, CSS    | same; combine HTML & JS - JSX |
+
 
 Angular's Verdict: more powerful, feature packed b/c of full MVC architecture, age, and community, but suffers small performance hit
 
