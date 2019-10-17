@@ -10,6 +10,7 @@ A main advantage of the directive, in addition to being intuitive-looking as its
 
 Regular declarative markup (regular HTML) can be mixed and matched in many ways to construct arbitrarily complex web pages. The behavior of those elements is configurable via attributes. Similarly, your custom declarative markup can be mixed and matched to construct your complex web application. This is more maintainable because the reuse of components cuts down the overall amount of code and centralizes and standardizes the logic of your app. 
 
+
 ### Angular.js vs React
 
 | 		       	| Angular       | React |
@@ -25,6 +26,7 @@ Regular declarative markup (regular HTML) can be mixed and matched in many ways 
 Angular's Verdict: more powerful, feature packed b/c of full MVC architecture, age, and community, but suffers small performance hit
 
 React's Verdict: lightweight and features virtual DOM; lightning fast for web apps that render large amounts of data but only contains View component - you need to provide own controller and model 
+
 
 ### Describe some strategies for handling high traffic. What is likely to fail? How can you design your system to prevent those failures?
 
