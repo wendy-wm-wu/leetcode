@@ -63,5 +63,11 @@ React's Verdict: lightweight and features virtual DOM; lightning fast for web ap
 Note: there is a LOT more than can be said, but outlining up to this level is probably good enough for most interviews.
 
 
+### What does it mean to scale an architecture horizontally, instead of vertically? 
+
+Horizontal scaling divides the load amongst many similar resources (can be done infinitely, with little incremental cost). Vertical scaling increases the power of a single resource (can be done only to a finite limit, and often at greater cost).
+
+
+
 
 
