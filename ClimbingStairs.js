@@ -30,19 +30,24 @@ Explanation: There are three ways to climb to the top.
  * @param {number} n
  * @return {number}
  */
+/**
+ * @param {number} n
+ * @return {number}
+ */
 var climbStairs = function(n) {
-  if (n === 0) {
-      return 0; 
-  }
-  if (n === 1) {
+  var memo = {};
+  return recurse(n, memo);
+};
+
+function recurse(n, memo) {
+  if (n < 0) {
+      return 0;
+  } else if (n === 0) {
       return 1; 
   }
-  if (n === 2) {
-      return 2; 
+  
+  if (!memo[n]) {
+      memo[n] = recurse(n - 1, memo) + recurse(n - 2, memo); 
   }
-  var arr = [1,2]; 
-  for (var i = 2; i < n; i++) {
-      arr[i] = arr[i - 1] + arr[i - 2];
-  }
-  return arr[n - 1]; 
-};
+  return memo[n];
+}
