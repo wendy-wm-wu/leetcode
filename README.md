@@ -38,7 +38,8 @@ React's Verdict: lightweight and features virtual DOM; lightning fast for web ap
 - Shard databases: ea shard is held on a separate database server instance to spread load
 - Mirror shards to boost fault/failure tolerance and allow concurrent reads across shards.
 
-![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/database%20sharding.png"Logo Title Text 1")
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/database%20sharding.png)
 
 
 
