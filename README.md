@@ -1,1 +1,14 @@
 # leetcode
+
+##Domain Knowledge
+
+###Angular Directive: 
+```
+What directives actually are under the hood is simply JavaScript functions that manipulate and add behaviors to HTML DOM elements.
+
+A main advantage of the directive, in addition to being intuitive-looking as its declarative aspect resides inline in your markup, is that it's a reusable component.
+
+Regular declarative markup (regular HTML) can be mixed and matched in many ways to construct arbitrarily complex web pages. The behavior of those elements is configurable via attributes. Similarly, your custom declarative markup can be mixed and matched to construct your complex web application. This is more maintainable because the reuse of components cuts down the overall amount of code and centralizes and standardizes the logic of your app. 
+```
+
+
