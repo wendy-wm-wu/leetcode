@@ -30,17 +30,26 @@ logs[i] is guaranteed to have an identifier, and a word after the identifier.
  * @param {string[]} logs
  * @return {string[]}
  */
+/**
+ * @param {string[]} logs
+ * @return {string[]}
+ */
 var reorderLogFiles = function(logs) {
-  let letter = [], digit = [];
-  for(let v of logs) {
-      if(v.split(" ")[1].charAt(0) >= '0' && v.split(" ")[1].charAt(0) <= '9'){
-          digit.push(v);
+  let letter = [];
+  let digit = [];
+  for (let i of logs) {
+      if (i.split(' ')[1].charAt(0) >= '0' && i.split(' ')[1].charAt(0) <= '9') {
+          digit.push(i);
       } else {
-          letter.push(v);
+          letter.push(i);
       }
   }
-  letter.sort(function (a, b) {
-      return a.split(" ")[1].localeCompare(b.split(" ")[1]) || a.split(" ")[2].localeCompare(b.split(" ")[2])
-  })
+  letter.sort((a, b) => {
+      if (a.split(' ')[1].localeCompare(b.split(' ')[1]) === 0 && a.split(' ')[2].localeCompare(b.split(' ')[2]) === 0) {
+          return a.split(' ')[0].localeCompare(b.split(' ')[0]); 
+      } else {
+          return a.split(' ')[1].localeCompare(b.split(' ')[1]) || a.split(' ')[2].localeCompare(b.split(' ')[2]);
+      }
+  });
   return letter.concat(digit);
 };
