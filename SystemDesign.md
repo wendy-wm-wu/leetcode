@@ -17,6 +17,8 @@
 	- more complex is basing routing on load/randomness 
 
 	Software Types: Amazon's elastic load balancer, Nginx, Linux virtual server
+	active-active: pair of load balancers that are listening for connections and either can receive packets and relay to backend servers (send heartbeats from left to right and right to left). If one stops hearing from the other guy, becomes completely in charge and continues to send packets 
+	active-passive: passive will promote to active and take over other load balancer's IP address and now all traffic goes to him 
 
 - Caching: 
 	- Type: 
@@ -25,6 +27,9 @@
 	- Use garbage collection to remove expired objects 
 	- Least Recently Used (LRU) eviction strategy 
 
-- Database replication: mitigate risk that single server will go down
+- Database replication: mitigate risk that single server will go down, parent and multiple child databases are identical to each other
+	- More ideal would be to have more than 1 master/parent server 
+	- Pros: single point of failure
+	- Cons: if one server dies if you only have 1 master/parent
 
 - Database partitioning
