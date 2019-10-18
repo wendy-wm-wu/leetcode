@@ -19,6 +19,11 @@
 	Software Types: Amazon's elastic load balancer, Nginx, Linux virtual server
 
 - Caching: 
+	- Type: 
+		- memcached: stores everything you want in RAM, stores key/value pair in cache (ex. user-id/user obj)
+	- Cons: Finite because RAM is finite, run out of RAM or disk space 
+	- Use garbage collection to remove expired objects 
+	- Least Recently Used (LRU) eviction strategy 
 
 - Database replication: mitigate risk that single server will go down
 
