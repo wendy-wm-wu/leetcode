@@ -82,3 +82,26 @@
 	- Async #2: 
 		- Have a queue of tasks or jobs that a worker can process 
 		- RabbitMQ
+
+### Performance vs. Scalability 
+
+Performance: if you have a performance problem, your system is slow for a single user. 
+Scalability: if you have a scalability problem, your system is fast for a single user but slow under heavy load. 
+
+### Latency vs. Throughput
+
+Latency: time to perform some action or to produce some result (e.g. 8 hours)
+Throughput: number of such actions or results per unit of time (e.g. 5 cars/hour)
+
+- Aim for maximal throughput with acceptable latency 
+
+### Availability vs. Consistency
+
+In a distributed computer system, you can only support 2 of the following guarantees:
+
+- Consistency - Every read receives the most recent write or an error
+- Availability - Every request receives a response, without guarantee that it contains the most recent version of the information
+- Partition Tolerance - The system continues to operate despite arbitrary partitioning due to network failures 
+
+
+
