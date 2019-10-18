@@ -52,3 +52,25 @@
 		- Joins are done in application code 
 		- Database requests will get slower and slower 
 		- Will need cache
+
+- Cache
+	- Memcached, Redis
+	- simple key-value store 
+	- reside as a buffering layer between your application and data storage
+	- lightning-fast bc it holds every dataset in RAM 
+
+	- Pattern 1: Cached Database Queries
+		- most common 
+		- when you do a query to your database, you store the result dataset in cache
+		- hashed version of query is cache key 
+		- Cons: expiration, hard to delete a cached result when you cache a complex query 
+
+	- Pattern 2: Cached Objects 
+		- preferable 
+		- let class assemble a dataset from your database and store complete instance of the class or the assembled dataset in the cache 
+
+		- Ideas of objects to cache: 	
+			- user sessions (never use the database) 
+			- fully rendered blog articles
+			- activity streams
+			- user <=> friend relationships 
