@@ -26,3 +26,79 @@ Output:
   [0,1,0]
 ]
 */
+
+/**
+ * @param {number[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var gameOfLife = function(board) {
+  for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[0].length; j++) {
+          if (board[i][j] === 0) {
+              countDead(i, j);
+          }
+          if (board[i][j] === 1) {
+              countAlive(i, j);
+          }
+      }
+  }
+  
+  for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[0].length; j++) {
+          if (board[i][j] === 2) {
+              board[i][j] = 1; 
+          } else if (board[i][j] === 3) {
+              board[i][j] = 0;
+          }
+      }
+  }
+  return board; 
+  
+  let countDead = function(i, j) {
+      //check out of bounds
+      let aliveCount = 0; 
+      if (i < 0 || j < 0 || i >= board.length || j >= board[0].length) {
+          return; 
+      }
+      if (board[i + 1][j] === 1) {
+          aliveCount++; 
+      }
+      if (board[i - 1][j] === 1) {
+          aliveCount++;
+      }
+      if (board[i][j + 1] === 1) {
+          aliveCount++;
+      }
+      if (board[i][j - 1] === 1) {
+          aliveCount++; 
+      }
+      if (aliveCount === 3) {
+          board[i][j] = 2; 
+      }
+  }
+  
+  let countAlive = function(i, j) {
+      let aliveCount = 0; 
+      if (i < 0 || j < 0 || i >= board.length || j >= board[0].length) {
+          return; 
+      }
+      if (board[i + 1][j] === 1) {
+          aliveCount++; 
+      }
+      if (board[i - 1][j] === 1) {
+          aliveCount++;
+      }
+      if (board[i][j + 1] === 1) {
+          aliveCount++;
+      }
+      if (board[i][j - 1] === 1) {
+          aliveCount++; 
+      }
+      if (aliveCount < 2) {
+          board[i][j] = 3;
+      } else if (aliveCount > 3) {
+          board[i][j] = 3; 
+      }
+  }
+  
+};
