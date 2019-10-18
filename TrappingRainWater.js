@@ -13,27 +13,27 @@ Output: 6
  * @param {number[]} height
  * @return {number}
  */
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
 var trap = function(height) {
-  let count = 0; 
-  
-  let helper = function(val, index) {
-      index++;
-      while (height[index] < val) {
-          index++;
-          if (height[index] >= val) {
-              let difference = height[index] - val; 
-              count += difference; 
-          }
-      }
-      return index;
-  }
-  
-  for (let i = 0; i < height.length; i++) {
-      if (height[i] > 0) {
-          let idx = helper(height[i], i);
-      }
-      i = idx; 
-  }
-  return count; 
-  
+  let trapped = 0; 
+   let left = 0; 
+   let leftHeight = 0;  
+   let right = height.length - 1; 
+   let rightHeight = 0; 
+   
+   while (left <= right) {
+       if (leftHeight <= rightHeight) {
+           leftHeight = Math.max(leftHeight, height[left]); 
+           trapped += leftHeight - height[left];
+           left++; 
+       } else {
+           rightHeight = Math.max(rightHeight, height[right]);
+           trapped += rightHeight - height[right];
+           right--;
+       }
+   }
+   return trapped;
 };
