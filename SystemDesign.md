@@ -32,4 +32,5 @@
 	- Pros: single point of failure
 	- Cons: if one server dies if you only have 1 master/parent
 
-- Database partitioning
+- Database partitioning: Divide large tables into multiple smaller parts, making less data to scan -> reduce overall response time to read and load data for operations
+	 - can balance load based on user information, for example
