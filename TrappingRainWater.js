@@ -9,3 +9,31 @@ Example:
 Input: [0,1,0,2,1,0,1,3,2,1,2,1]
 Output: 6
 */
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+  let count = 0; 
+  
+  let helper = function(val, index) {
+      index++;
+      while (height[index] < val) {
+          index++;
+          if (height[index] >= val) {
+              let difference = height[index] - val; 
+              count += difference; 
+          }
+      }
+      return index;
+  }
+  
+  for (let i = 0; i < height.length; i++) {
+      if (height[i] > 0) {
+          let idx = helper(height[i], i);
+      }
+      i = idx; 
+  }
+  return count; 
+  
+};
