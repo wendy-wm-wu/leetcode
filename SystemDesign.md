@@ -34,3 +34,10 @@
 
 - Database partitioning: Divide large tables into multiple smaller parts, making less data to scan -> reduce overall response time to read and load data for operations
 	 - can balance load based on user information, for example
+
+
+### Scalability (Cont.)
+
+- Clones
+	- 1st golden rule for scalability: Every server contains exactly the same codebase and does not store any user-related data, like sessions or profile pictures, on local disc or memory 
+		- Sessions need to be stored in a centralized data store which is accessible to all your app servers (e.g. Redis, external database)
