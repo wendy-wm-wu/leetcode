@@ -38,6 +38,17 @@
 
 ### Scalability (Cont.)
 
-- Clones
+- Clones (horizontally scale)
 	- 1st golden rule for scalability: Every server contains exactly the same codebase and does not store any user-related data, like sessions or profile pictures, on local disc or memory 
 		- Sessions need to be stored in a centralized data store which is accessible to all your app servers (e.g. Redis, external database)
+
+- Database
+	- Path 1: master-slave replication (read from slaves, write to master) 
+		- upgrade master server by adding RAM
+		- data sharding
+		- more expensive and time consuming
+
+	- Path 2: Denormalize and include no mroe Joins in any database query.
+		- Joins are done in application code 
+		- Database requests will get slower and slower 
+		- Will need cache
