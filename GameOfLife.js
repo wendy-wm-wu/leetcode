@@ -31,74 +31,68 @@ Output:
  * @param {number[][]} board
  * @return {void} Do not return anything, modify board in-place instead.
  */
+/**
+ * @param {number[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
 var gameOfLife = function(board) {
+  var res = [];
+  for (let i = 0; i < board.length; i++) {
+     res[i] = [];
+      for (let j = 0; j < board[0].length; j++) {
+          res[i][j] = 0; 
+      }
+  }
+  
   for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[0].length; j++) {
-          if (board[i][j] === 0) {
-              countDead(i, j);
+          var alive = 0; 
+          
+          if (i - 1 >= 0 && board[i - 1][j] === 1) {
+              alive++; 
           }
+          if (i + 1 < board.length && board[i + 1][j] === 1) {
+              alive++; 
+          }
+          if (j + 1 < board[0].length && board[i][j + 1] === 1) {
+              alive++;
+          }
+          if (j - 1 >= 0 && board[i][j - 1] === 1) {
+              alive++; 
+          }
+          if (i - 1 >= 0 && j + 1 < board[0].length && board[i - 1][j + 1] === 1) {
+              alive++; 
+          }
+          if (i + 1 < board.length && j + 1 < board[0].length && board[i + 1][j + 1] === 1) {
+              alive++; 
+          }
+          if (i - 1 >= 0 && j - 1 >= 0 && board[i - 1][j - 1] === 1) {
+              alive++; 
+          }
+          if (i + 1 < board.length && j - 1 >= 0 && board[i + 1][j - 1] === 1) {
+              alive++; 
+          }
+          
           if (board[i][j] === 1) {
-              countAlive(i, j);
+              if (alive < 2) {
+                  res[i][j] = 0; 
+              } else if (alive >= 2 && alive <= 3) {
+                  res[i][j] = 1; 
+              } else {
+                  res[i][j] = 0; 
+              }
+          } else {
+              if (alive === 3) {
+                  res[i][j] = 1; 
+              } else {
+                  res[i][j] = 0; 
+              }
           }
+          
       }
   }
-  
-  for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board[0].length; j++) {
-          if (board[i][j] === 2) {
-              board[i][j] = 1; 
-          } else if (board[i][j] === 3) {
-              board[i][j] = 0;
-          }
-      }
+  //copy over everything from res to board 
+  for (var i = 0; i < res.length; i++) {
+      board[i] = res[i]; 
   }
-  return board; 
-  
-  let countDead = function(i, j) {
-      //check out of bounds
-      let aliveCount = 0; 
-      if (i < 0 || j < 0 || i >= board.length || j >= board[0].length) {
-          return; 
-      }
-      if (board[i + 1][j] === 1) {
-          aliveCount++; 
-      }
-      if (board[i - 1][j] === 1) {
-          aliveCount++;
-      }
-      if (board[i][j + 1] === 1) {
-          aliveCount++;
-      }
-      if (board[i][j - 1] === 1) {
-          aliveCount++; 
-      }
-      if (aliveCount === 3) {
-          board[i][j] = 2; 
-      }
-  }
-  
-  let countAlive = function(i, j) {
-      let aliveCount = 0; 
-      if (i < 0 || j < 0 || i >= board.length || j >= board[0].length) {
-          return; 
-      }
-      if (board[i + 1][j] === 1) {
-          aliveCount++; 
-      }
-      if (board[i - 1][j] === 1) {
-          aliveCount++;
-      }
-      if (board[i][j + 1] === 1) {
-          aliveCount++;
-      }
-      if (board[i][j - 1] === 1) {
-          aliveCount++; 
-      }
-      if (aliveCount < 2) {
-          board[i][j] = 3;
-      } else if (aliveCount > 3) {
-          board[i][j] = 3; 
-      }
-  }
-  
 };
