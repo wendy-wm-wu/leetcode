@@ -14,9 +14,12 @@
 	- backend servers can now have private IP addresses (rest of the world cannot see private IPs)
 	- common approach is round robin style
 		- Con: if bad luck, one server might get more heavy-weight users, or caching can contribute to disproportionate amount of load on a server due to bad luck 
-	- more complex is basing routing on load 
+	- more complex is basing routing on load/randomness 
+
+	Software Types: Amazon's elastic load balancer, Nginx, Linux virtual server
 
 - Caching: 
 
-- Database replication
+- Database replication: mitigate risk that single server will go down
+
 - Database partitioning
