@@ -17,24 +17,18 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
  * @param {number[][]} intervals
  * @return {number[][]}
  */
-var merge = function(intervals) {
-    if (intverals.length === 0) {
-        return intervals; 
+function merge(intervals) {
+  if (!intervals.length) return intervals
+  intervals.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1])
+  var prev = intervals[0]
+  var res = [prev]
+  for (var curr of intervals) {
+    if (curr[0] <= prev[1]) {
+      prev[1] = Math.max(prev[1], curr[1])
+    } else {
+      res.push(curr)
+      prev = curr
     }
-    intervals.sort((a,b) => {
-        a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1];  
-    });
-    //define prev as the first in intervals 
-    let prev = intervals[0]; 
-    var res = [prev];
-    
-    for (var curr of intervals) {
-        if (curr[0] <= prev[1]) {
-            prev[1] = Math.max(prev[1], curr[1]); 
-        } else {
-            res.push(curr);
-            prev = curr; 
-        }
-    }
-    return res; 
-};
+  }
+  return res
+}
