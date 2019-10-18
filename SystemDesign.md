@@ -103,5 +103,15 @@ In a distributed computer system, you can only support 2 of the following guaran
 - Availability - Every request receives a response, without guarantee that it contains the most recent version of the information
 - Partition Tolerance - The system continues to operate despite arbitrary partitioning due to network failures 
 
+##### CP - consistency and partition tolerance
+
+Waiting for a response from the partitioned node might result in a timeout error. CP is a good choice if your business needs require atomic reads and writes.
+
+##### AP - availability and partition tolerance
+
+Respones return the most recent version of the data available on a node, which might not be the latest. Writes might take some time to propagate when tehe partition is resolved. 
+AP is a good choice if the business needs allow for eventual consistency or when the system needs to continue working despite external errors. 
+
+
 
 
