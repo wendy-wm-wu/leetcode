@@ -74,3 +74,11 @@
 			- fully rendered blog articles
 			- activity streams
 			- user <=> friend relationships 
+
+- Asynchronism
+	- Async #1:
+		- doing the time-consuming work in advance and serving the finished work with a low request time 
+		- turn dynamic content into static content (e.g. Website pages are prerendered and locally stored as static HTML files on every change)
+	- Async #2: 
+		- Have a queue of tasks or jobs that a worker can process 
+		- RabbitMQ
