@@ -10,3 +10,28 @@ Example 2:
 Input: [[7,10],[2,4]]
 Output: 1
 */
+
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var minMeetingRooms = function(intervals) {
+  if (!intervals.length) {
+      return 0;
+  }
+  let rooms = 0;
+  let end = 0; 
+  
+  //sort starts and ends
+  let starts = intervals.map(a => a[0]).sort((a,b) => a - b);
+  let ends = intervals.map(a => a[1]).sort((a,b) => a - b);
+  
+  for (let i = 0; i < intervals.length; i++) {
+      if (starts[i] < ends[end]) {
+          rooms++;
+      } else {
+          end++;
+      }
+  }
+  return rooms;
+};
