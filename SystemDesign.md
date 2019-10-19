@@ -280,7 +280,11 @@ Load balancers can also help with horizontal scaling, improving performance and 
 - Introducing a load balancer to help eliminate single points of failure results in increased complexity
 - A single load balancer is a single point of failure, configuring multiple load balancers further increases complexity 
 
+### Reverse proxy (web server)
 
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/proxy.png)
+
+A reverse proxy 
 
 
 
