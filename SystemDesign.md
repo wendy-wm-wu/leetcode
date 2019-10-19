@@ -177,3 +177,39 @@ Availability is often quantified by uptime (or downtime) as a percentage of time
 | Downtime per day          | 8.6s   | 
 
 
+### Domain Name System 
+
+Domain Name System(DNS) translates a domain name such as google.com to an IP address.
+
+DNS is hierarchical, with a few authoritative servers at the top level. Your router or ISP provides information about which DNS server(s) to contact when doing a lookup. Lower level DNS servers cache mappings. DNS results can also be cached by your browser or OS for a certain period of time, determined by the time to live (TTL).
+
+Services such as CloudFlare and Route 53 provide managed DNS services. Some DNS services can route traffic through various methods
+- Weighted round robin
+	- prevent traffic from going to servers under maintenance
+	- balance between varying cluster sizes
+	- A/B testing
+- Latency-based
+- Geolocation-based 
+
+### Disadvantage(s): DNS
+
+- Accessing a DNS server introduces a slight delay, although mitigated by caching
+- DNS server management could be complex and is generally managed by governments, ISPs, and large companies
+- DNS services have recently come under DDoS attack, preventing users from accessing websites such as Twitter without knowing Twitter's IP address(es)
+
+### Content Delivery Network
+
+A content delivery network (CDN) is a globally distributed network of proxy servers, serving content from locations closer to the user. Generally, static files such as HTML/CSS/JS, photos, and videos are served from CDN, although some CDNs such as Amazon's CloudFront support dynamic content. The site's DNS resolution will tell clients which server to contact. 
+
+Serving content from CDNs can significantly improve performance in 2 ways: 
+1. Users receive content at data centers close to them
+2. Your servers do not have to serve requests that the CDN fulfills 
+
+
+
+
+
+
+
+
+
