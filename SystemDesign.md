@@ -231,6 +231,7 @@ Sites with heavy traffic work well with pull CDNs, as traffic is spread out more
 
 ### Load Balancer
 
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/load%20balancer.png)
 
 
 
