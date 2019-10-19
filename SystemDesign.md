@@ -120,6 +120,11 @@ After a write, reads may or may not see it. This approach is seen in systems suc
 
 Weak consistency works well in real time use cases such as VoIP, video chat, and realtime multiplayer games. For example, if you are on a phone call and lose reception for a few seconds, when you regain connection you do not hear what was spoken during connection loss. 
 
+#### Eventual Consistency
+
+After a write, reads will eventually see it (typically within ms). Data is replicated asynchronously. 
+
+This approach is seen in systems such as DNS and email. Eventual consistency works well in highly available systems. 
 
 
 
