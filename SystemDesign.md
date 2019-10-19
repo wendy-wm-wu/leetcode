@@ -130,7 +130,30 @@ This approach is seen in systems such as DNS and email. Eventual consistency wor
 
 After a write, reads will see it. Data is replicated synchronously. 
 
-This approach is seen in file steyms and RDBMSes. Strong consistency works well in systems that need transactions. 
+This approach is seen in file systems and RDBMSes. Strong consistency works well in systems that need transactions. 
+
+### Availability Patterns
+
+There are 2 main patterns that support high availability. 
+
+#### Fail-over
+
+##### Active-passive
+
+Heartbeats are set between the active and the passive server on standby. If the heartbeat is interrupted, the passive server takes over the active's IP address and resumes service. 
+
+The length of downtime is determined by whether the passive server is already running in 'hot' standby or whether it needs to start up from 'cold' standby. Only the active server handles traffic. 
+
+##### Active-active
+
+Both servers are managing traffic, spreading the load between them. 
+
+If the servers are public-facing, the DNS would need to know about the public IPs of both servers. If the servers are internal-facing, application logic would need to know about both servers. 
+
+#### Disadvantage(s): failover
+- Fail-over adds more hardware and additional complexity
+- There is a potential for loss of data if the active system fails before any newly written data can be replicated to the passive. 
+
 
 
 
