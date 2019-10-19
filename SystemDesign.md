@@ -193,6 +193,8 @@ Services such as CloudFlare and Route 53 provide managed DNS services. Some DNS 
 
 ### Disadvantage(s): DNS
 
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/DNS.jpeg)
+
 - Accessing a DNS server introduces a slight delay, although mitigated by caching
 - DNS server management could be complex and is generally managed by governments, ISPs, and large companies
 - DNS services have recently come under DDoS attack, preventing users from accessing websites such as Twitter without knowing Twitter's IP address(es)
@@ -223,6 +225,10 @@ Sites with heavy traffic work well with pull CDNs, as traffic is spread out more
 - CDN costs could be significant depending on traffic, although this should be weighed with additional costs you would incur not using a CDN
 - Content might be stale if it is updated before the TTL expires it 
 - CDNs require changing URLs for static content to point to the CDN
+
+
+### Load Balancer
+
 
 
 
