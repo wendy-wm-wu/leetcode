@@ -126,5 +126,12 @@ After a write, reads will eventually see it (typically within ms). Data is repli
 
 This approach is seen in systems such as DNS and email. Eventual consistency works well in highly available systems. 
 
+#### Strong Consistency
+
+After a write, reads will see it. Data is replicated synchronously. 
+
+This approach is seen in file steyms and RDBMSes. Strong consistency works well in systems that need transactions. 
+
+
 
 
