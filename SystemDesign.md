@@ -308,6 +308,12 @@ Additional benefits include:
 - A single reverse proxy is a single point of failure, configuring multiple reverse proxies (i.e. failover) further increases complexity.  
 
 
+### Application Layer
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/applayer.png)
+
+Separating out the web layer from the application layer (also known as platform layer) allows you to scale and configure both layers independently. Adding a new API results in adding application servers without necessarily adding additional web servers. The single responsibility principle advocates for small and autonomous services that work together. Small teams with small services can plan more aggressively for rapid growth. 
+
 
 
 
