@@ -201,6 +201,8 @@ Services such as CloudFlare and Route 53 provide managed DNS services. Some DNS 
 
 ### Content Delivery Network
 
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/CDN.jpeg)
+
 A content delivery network (CDN) is a globally distributed network of proxy servers, serving content from locations closer to the user. Generally, static files such as HTML/CSS/JS, photos, and videos are served from CDN, although some CDNs such as Amazon's CloudFront support dynamic content. The site's DNS resolution will tell clients which server to contact. 
 
 Serving content from CDNs can significantly improve performance in 2 ways: 
