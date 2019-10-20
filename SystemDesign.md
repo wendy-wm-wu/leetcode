@@ -322,7 +322,10 @@ Microservices are a suite of independently deployable, small, modular services. 
 - Adding an application layer with loosely coupled services requires a different approach from an architectural, operations, and process viewpoint (vs a monolithic system)
 - Microservices can add complexity in terms of deployments and operations 
 
+### Database
 
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/database.png
+)
 
 
 
