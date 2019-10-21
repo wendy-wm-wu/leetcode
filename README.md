@@ -154,6 +154,21 @@ Manual testing is often referred to as "black box" testing. To the human tester,
 
 A set of "smoke tests" are limited sets of tests of very high value areas of the system. Often this will be stuff like logging into the system or making a payment. If those areas are broken, there's absolutely no way we can ship. (Often called "show-stoppers"). The analogy is that "smoke is pouring out of the black box" -- you don't know exactly what's up, but it's Really Bad. They are usually small so you can routinely run them as a final "sanity check" before release. 
 
+### What's the difference between encryption and hashing?
+
+Encrypted data can be decrypted, in that sense that they are "two-way". Whereas hashes are "one-way". 
+
+### What's the difference between encoding, obfuscation, minification, and compression? 
+
+"Minification" of your JS usually refers to just removing whitespace and wahtnot to save space when transporting it over the wire. 
+
+"Compression" is actually applying a compression algorithm, e.g., gzipping your code before transporting it over the wire. 
+
+The two terms blur together a bit when you consider the Google Closure Compiler, which uses static analysis to perform aggressive optimizations like renaming your functions to very short names and pruning unused code.
+
+"Obfuscation" means hiding human-readable code with harder-to-read equivalents. It's often a slightly useful side effect of minifying and compressing. Obfuscation has minor utility in discouraging hacking but it won't stop a determined hacker from looking at whatever code you're sending to the client. 
+
+"Encoding" converts characters to make sure they can be transported safely. 
 
 
 
