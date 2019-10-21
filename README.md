@@ -67,6 +67,31 @@ Note: there is a LOT more than can be said, but outlining up to this level is pr
 
 Horizontal scaling divides the load amongst many similar resources (can be done infinitely, with little incremental cost). Vertical scaling increases the power of a single resource (can be done only to a finite limit, and often at greater cost).
 
+### What is a cookie? 
+
+#### Background
+- key-value pairs
+- sent with every HTTP request
+- the primary way to get around HTTP's stateless nature
+- scoped by subdomain
+- can be set to expire 
+
+#### How is it used? 
+- Remembering stateful information, e.g. items in a shopping cart or previously entered items in a form field
+- Implementing sessions. For example, an encrypted session id can be stored in the cookie. 
+- Generally, storing any client-specific data
+- User tracking across sites 
+
+#### Tips/Gotchas
+- They only store up to around 4KB
+- You can encrypt them but it's safer to just use them to store an id, keyed to fetch teh full user info, server-side 
+- You can relax the scoping to just the domain to share cookies between subdomains, this is one way to get a poor man's SSO(todo)
+- Setting them to never expire is often a security risk
+- Since they're sent with every request, they can require bandwidth
+	- Can fix this by putting static assets on a separate subdomain or domain
+
+
+
 
 
 
