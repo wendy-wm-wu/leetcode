@@ -345,5 +345,14 @@ The master serves reads and writes, replicating writes to one or more slaves, wh
 ![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/masterslave.png
 )
 
+###### Disadvantage(s): master-slave replication
+- Additional logic is needed to promote a slave to a master
+
+##### Master-master replication
+
+Both masters serve reads and writes and coordinate with each other on writes. If either master goes down, the system can continue to operate with both reads and writes. 
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/mastermaster.png
+)
 
 
