@@ -327,7 +327,23 @@ Microservices are a suite of independently deployable, small, modular services. 
 ![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/database.png
 )
 
+#### Relational database management system (RDBMS)
+A relational detabase like SQL is a collection of data items organized in tables. 
 
+ACID is a set of properties of relational database transactions. 
+- Atomicity - Each transition is all or nothing 
+- Consistency - Any transaction will bring the database from one valid state to another 
+- Isolation - Executing transactions concurrently has the same results as if the transactions were executed serially 
+- Durability - Once a transaction has been committed, it will remain so 
+
+There are many techniques to scale a relationahip database: master-slave replication, master-master replication, federation, sharding, denormalization, and SQL tuning. 
+
+##### Master-slave replication
+
+The master serves reads and writes, replicating writes to one or more slaves, which serve only reads. Slaves can also replicate to additioanl slaves in tree-like fashion. If the master goes offline, the system can continue to operate in read-only mode until a slave is promoted to a master or a new master is provisioned. 
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/masterslave.png
+)
 
 
 
