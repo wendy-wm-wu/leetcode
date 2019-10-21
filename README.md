@@ -90,7 +90,17 @@ Horizontal scaling divides the load amongst many similar resources (can be done 
 - Since they're sent with every request, they can require bandwidth
 	- Can fix this by putting static assets on a separate subdomain or domain
 
+### What's the difference between a socket and a port? 
 
+A socket is like a file descriptor - it's the object/abstraction that a running program (process) uses to talk to the OS about a connection. A port helps route to the correct socket. 
+
+### What is the "same-origin policy"? 
+
+It's a basic security measure implemented by browsers. The theory is that "you trust yourself". If you serve assets to a client, then those assets can trust each other not to be malicious. Stuff from other sources is untrusted. 
+
+What "self" means here is a combination of protocol (e.g. http vs https), the domain (down to the sub-domain level), and port. If resources arrive from some other combination of those things, they are untrusted.
+
+There are various techniques to get around same-origin restrictions but one clean way is to use teh official CORS (Cross-Origin Resource Sharing) mechanism. 
 
 
 
