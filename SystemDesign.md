@@ -371,3 +371,123 @@ Both masters serve reads and writes and coordinate with each other on writes. If
 
 ![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/federation.png
 )
+
+Federation (or functional partitioning) splits up databases by function. For example, instead of a single, monolithic databsae, you could have three databases: forums, users, and products, resulting in less read and write traffic to each database and therefore less replication lag. Smaller databases result in more data that can fit in memory, which in turn results in more cache hits due to improved cache locality. With no single central master serializing writes, you can write in parallel, increasing throughput. 
+
+##### Disadvantage(s): federation
+- Federation is not effective if your schema requires huge functions or tables
+- You'll need to update your application logic to determine which database to read and write. 
+- Joining data from two databases is more complex with a server link
+- Federation adds more hardware and additional complexity 
+
+#### Sharding
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/sharding.png
+)
+
+Sharding distributes data across different databases such that each database can only manage a subset of the data. Taking a users database as an example, as the number of users increases, more shards are added to the cluster. 
+
+Similar to the advantages of federation, sharding results in less read and write traffic, less replication, and more cache hits. Index size is also reduced, which generally improves performance with faster queries. If one shard goes down, the other shards are still operational, although you'll want ot add some form of replication to avoid data loss. Like federation, there is no single central master serializing writes, allowing you to write in parallel with increased throughput. 
+
+Common ways to shard a table of users is either through the user's last name initial or the user's geographic location
+
+###### Disadvantage(s): sharding
+- You'll need to update your application logic to work with shards, which could result in complex SQL queries 
+- Data distribution can become lopsided in a shard. For example, a set of power users on a shard could result in increased load to that shard compared to others. 
+	- Rebalancing adds additional complexity. A sharding function based on consistent hasing can reduce the amount of transferred data. 
+- Joining data from multiple shards is more complex
+- Sharding adds more hardware and additional complexity 
+
+#### Denormalization
+
+Denormalization attempts to improve read performance at the expense of some write performance. Redundant copies of the data are written in multiple tables to avoid expensive joins. Some RDBMS such as PostgreSQL support materialized views which handle the work of storing redudant information and keeping redudant copies consistent. 
+
+Once data becomes distributed with techniques such as federation and sharding, managing joins across data centers further increases complexity. Denormalization might circumvent the need for such complex jions.
+
+In most systems, reads can heavily outnumber writes 100:1 or even 1000:1. A read resulting in a complex database join can be very expensive, spending a significant amount of time on disk operations. 
+
+##### Disadvantage(s): denormalization
+- Data is duplicated 
+- Constraints can help redudant copies of information stay in sync, which increases complexity of the database design
+- A denormalized database under heavy write load might perform worse than its normalized counterpart 
+
+#### SQL tuning
+
+It's important to benchmark and profile to simulate and uncover bottlenecks.
+
+- Benchmark - Simulate high-load situations with tools such as ab. 
+- Profile - Enable tools such as the slow query log to help track performance issues. 
+
+Benchmarking and profiling might point you to the following optimizations. 
+
+###### Tighten up the schema
+- MySQL dumps to disk in contiguous blocks for fast access. 
+- Use CHAR instead of VARCHAR for fixed-length fields
+	- CHAR effectively allows for fast, random access, whereas with VARCHAR, you must find the end of a string before moving onto the next one. 
+- Use TEXT for large blocks of text such as blog posts. TEXT also allows for boolean searches. Using a TEXT field results in storing a pointer on disk that is used to locate the text block.
+- Use INT for larger numbers up to 2^32 or 4 billion.
+- Use DECIMAL for currency to avoid floating point representation errors. 
+- VARCHAR(255) is the largest number of characters that can be counted in an 8 bit number, often maximizing teh use of a byte in some RDBMS. 
+- Set the NOT NULL constraint where applicable to improve search performance
+
+###### Use good indices
+- Columns that you are querying (SELECT, GROUP BY, ORDER BY, JOIN) could be faster with indices
+- Indices are usually represented as self-balancing B-tree that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time
+- Placing an index can keep the data in memory, requiring more space
+- Writes could also be slower since the index also needs to be updated 
+- When loading large amounts of data, it might be faster to disable indices, load the data, and then rebuild the indices 
+
+###### Avoid expensive joins 
+- Denormalize where performance demands it 
+
+###### Partition tables
+- Break up a table by putting hot spots in a separate table to help keep it in memory 
+
+###### Tune the query cache
+- In some cases, the query cache could lead to performance issues 
+
+
+### NoSQL
+
+NoSQL is a collection of data items represented in a key-value store, document store, wide column store, or a graph database. Data is denormalized, and joins are generally done in the application code. Most NoSQL stores lack true ACID transactions and favor eventual consistency.
+
+BASE is often used to describe the properties of NoSQL databases. BASE chooses availability over consistency. 
+- Basically available - the system guarantees availability
+- Soft state - the state of the system may change over time, even without input 
+- Eventual consistency- the system will become consistent over a period of time, given that the system doesn't receive input during that period 
+
+#### Key-value store
+
+A key-value store generally allows for O(1) reads and writes and is often backed by memory or SSD. Data stores can maintain keys in lexicographic order, allowing efficient retrieval of key ranges. Key-value stores can allow for storing metadata with a value. 
+
+Key-value stores provide high performance and are often used for simple data models or for rapidly-changing data, such as in-memory cache layer. Since they offer a limited set of operations, complexity is shifted to the application layer if additional operations are needed. 
+
+A key-value store is the basis for more complex systems such as a document store, and in some cases, a graph database. 
+
+#### Document store
+
+A document store is centered around documents (XML, JSON, binary, etc), where a document stores all information for a given object. Document stores provide APIs or a query language to query based on the internal structure of the document itself. Note, many key-value stores include features for working with a value's metadata, blurring the lines between these two storage types. 
+
+Based on the underlying implementation, documents are organized by collections,t ags, metadata, or directories. Although documents can be organized or grouped together, documents may have fields that are completely different from each other. 
+
+Some document stores like MongoDB also provide a SQL-like language to perform complex queries. 
+
+Document stores provide high flexibility and are often used for working with occasionally changing data. 
+
+#### Wide column store
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/columnstore.png
+)
+
+A wide column store's basic unit of data is a column (name/value pair). A column can be grouped in column families (analogous to a SQL table). Super column families further group column families. You can access each column independently with a row key, and columns with the asme row key form a row. Each value contains a timestamp for versioning and for conflict resolution. 
+
+Cassandra from Facebook. Stores like Cassandra maintain keys in lexicographic order, allowing efficient retrieval from selective key ranges. 
+
+Wide column stores offer high availability and high scalability. They are often used for very large data sets. 
+
+### SQL or NoSQL
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/sqlvsnosql.png
+)
+
+
