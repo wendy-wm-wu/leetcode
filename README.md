@@ -170,6 +170,61 @@ The two terms blur together a bit when you consider the Google Closure Compiler,
 
 "Encoding" converts characters to make sure they can be transported safely. 
 
+### What do "FIFO" and "LIFO" mean? 
+
+FIFO stands for First In First Out.
+LIFO stands for Last In First Out.
+
+FIFO corresponds to the “queue” abstract data structure.
+LIFO corresponds to the “stack” abstract data structure.
+
+Queues are an important part of a robust system architecture. Jobs are placed on queues and consumed by workers. A series of such queues can be lined up to implement a workflow.  For example, let’s say you work at YouTube and you needed to send out a “this week’s recommendations” digest email to a large population of channel subscribers. You could organize that overall task as a series of work queues, one for each phase of the workflow.  
+
+At the start of the workflow, a cluster of dispatcher processes can look up all the current subscribers (in a paginated/batched way of course).  They bundle up batches of subscribers into separate jobs (say 100 per job) and put those jobs onto the 1st queue..
+
+Each job is pulled off 1st queue by a member of the next cluster of workers.That worker will find the video recommendations for each of the 100 subscribers in the job it just pulled. The worker then assembles up to 10 new jobs (to actually format the emails), for up to 10 subscribers per job, and puts those jobs onto the 2nd queue.  
+
+When the workers for the 2nd queue are done, they forward a new job onto the 3rd queue, to actually send the emails.
+
+After the workers consuming the 3rd queue are done, the workflow is complete! Tens of millions of people can now safely ignore the resulting spammy exhortations to watch entertainingly mindless videos.
+
+That's "queues" in action at the system architecture level.
+
+Stacks are also an important data structure and you use one every time you run a program. The call stack maintains the tree of function calls that expands and collapses at a tremendous pace throughout execution of your code. At every level of this tree there is a corresponding stack frame that represents the state when the function was called. Visualizing the state of the stack is key to understanding and making use of recursion. It’s also a good skill to have for debugging and generally understanding wth your program is actually doing.
+
+### Explain what "Big O" notation is. 
+
+It’s a formal way of comparing the complexity in time or space of different algorithms.
+
+Because hardware can be very different, it isn’t that effective to compare the actual, clock-measured speed of one algorithm versus another. Benchmarks attempt to do this but are always confounded by the ambiguity introduced by different hardware / different runtime contexts.
+
+However the inherent, abstract _complexity_ of one approach versus another does not change. The analogy here is boiling an egg vs making a souffle.  A beginning cook will take a lot longer in clock time to make a souffle than an experienced sous-chef. But both people have to do more work inherently to make a souffle than to boil an egg. The inherent _complexity_ is higher.
+
+Time complexity is measured, in programming, in the number of _steps_ it takes to execute an algorithm, given some discrete input size (the number of elements in an array, say). 
+
+If, given an input of size n, you can complete your processing in a single step, that’s called O(1) time.
+
+If you have to loop over all the elements in order to complete the processing, that’s O(n) time.
+
+If you have to nest 2 loops to complete the processing, that’s O(n^2) -- n-squared.  That’s called “quadratic time”.
+
+If you can cut down the amount of elements that need to be processed in half with each pass, then that’s O(log n) time.
+
+If the number of steps grows as an exponential function of some base, say base 2, then that’s  2^n (2 to the n power), where n is the number of elements, then your algorithm is toast…. you can’t scale at all.  That’s called “exponential time”.
+
+Space complexity is similar, but talks about the growth in memory use required to execute a given algorithm, rather than the growth in the number of steps (CPU use).
+
+The point of examining Big O performance is to get a sense for whether a given processing strategy is viable -- will it consume too many resources at scale ? Will it bog down with a large input size, and therefore slow the whole system to a crawl once we launch for real?
+
+### What is "dynamic programming"? 
+
+Dynamic programming (DP) is an algorithm design approach.  It’s especially good for optimization problems, or other problems where exhaustive search over the solution space helps to find the best solution. Normally exhaustive search is computationally too expensive to use in practice. However DP uses clever tricks to reduce the computation to a reasonable amount. One cute way of thinking about DP is “careful brute force”.
+
+Like generic “divide and conquer” algorithms, DP involves solving a complex problem by breaking it down into a collection of simpler subproblems. So far, that sounds like quicksort and its ilk. However dynamic programming goes a step further by analyzing those subproblems and noting that there is some overlap between the subproblems. 
+
+This is actually a good thing, because it is by avoiding recalculation of those repeated subproblems that DP achieves enough efficiency gains to be usable despite the "exhaustive search" aspect mentioned above. The technique for doing so is memoization, which you’ve already used. However memoization is not DP, nor does it compete with DP, it’s simply used by DP.
+
+DP is a subtle technique that will require substantial time to sink in. We recommend you take a few hours sometime and watch the videos linked below. They provide a complete grounding in the technique, illustrated with real examples, and present a recipe for figuring out how to generate DP-style solutions on your own.
 
 
 
