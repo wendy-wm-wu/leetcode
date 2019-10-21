@@ -324,8 +324,7 @@ Microservices are a suite of independently deployable, small, modular services. 
 
 ### Database
 
-![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/database.png
-)
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/database.png)
 
 #### Relational database management system (RDBMS)
 A relational detabase like SQL is a collection of data items organized in tables. 
@@ -342,8 +341,7 @@ There are many techniques to scale a relationahip database: master-slave replica
 
 The master serves reads and writes, replicating writes to one or more slaves, which serve only reads. Slaves can also replicate to additioanl slaves in tree-like fashion. If the master goes offline, the system can continue to operate in read-only mode until a slave is promoted to a master or a new master is provisioned. 
 
-![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/masterslave.png
-)
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/masterslave.png)
 
 ###### Disadvantage(s): master-slave replication
 - Additional logic is needed to promote a slave to a master
@@ -352,8 +350,7 @@ The master serves reads and writes, replicating writes to one or more slaves, wh
 
 Both masters serve reads and writes and coordinate with each other on writes. If either master goes down, the system can continue to operate with both reads and writes. 
 
-![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/mastermaster.png
-)
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/mastermaster.png)
 
 ###### Disadvantage(s): master-master replication
 - You'll need a load balancer or you'll need to make changes to your application logic to determine where to write 
@@ -476,8 +473,7 @@ Document stores provide high flexibility and are often used for working with occ
 
 #### Wide column store
 
-![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/columnstore.png
-)
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/columnstore.png)
 
 A wide column store's basic unit of data is a column (name/value pair). A column can be grouped in column families (analogous to a SQL table). Super column families further group column families. You can access each column independently with a row key, and columns with the asme row key form a row. Each value contains a timestamp for versioning and for conflict resolution. 
 
@@ -487,7 +483,204 @@ Wide column stores offer high availability and high scalability. They are often 
 
 ### SQL or NoSQL
 
-![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/sqlvsnosql.png
-)
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/sqlvsnosql.png)
+
+Reasons for SQL:
+- Structured data
+- Strict schema
+- Relational data
+- Need for complex joins
+- Transactions
+- Clear patterns for scaling
+- More established: developers, community, code, tools, etc
+- Lookups by index are very fast
+
+Reasons for NoSQL: 
+- Semi-structured data
+- Dynamic or flexible schema
+- Non-relational data
+- No need for complex joins
+- Store many TB (or PB) of data
+- Very data intensive workload
+- Very high throughput for IOPs
+
+Sample data well-suited for NoSQL:
+- Rapid ingest of clickstream and log data
+- Leaderboard or scoring data
+- Temporary data, such as a shopping cart
+- Frequently accessed ('hot') tables
+- Metadata/lookup tables 
+
+### Cache
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/cache.png)
+
+Caching improves page load times and can reduce the load on your servers and databases. In this model, the dispatcher will first lookup if the request has been made before and try to find the previous result to return, in order to save the actual execution.
+
+Databases often benefit from a uniform distribution of reads and writes across its partitions. Popular items can skew the distribution, causing bottlenecks. Putting a cache in front of database can help absorb uneven loads and spikes in traffic.
+
+#### Application caching
+
+In-memory cahces such as Memcached and Redis are key-value stores between your application and your data storage. Since the data is held in RAM, it is much faster than typical databases where data is stored on disk. RAM is more limited than disk, so cache invalidation algorithms such as least recently used (LRU) can help invalidate 'cold' entires and keep 'hot' data in RAM. 
+
+There are multiple levels you can cache that fall into two general categories: database queries and objects: 
+- Row level
+- Query-level
+- Fully formed serializable objects
+- Fully-rendered HTML 
+
+Generally, you should try to avoid file-based caching, as it makes cloning and auto-scaling more difficult. 
+
+#### Caching at the database query level
+
+Whenever you query the database, hash the query as a key and store the result to the cache. This approach suffers from expiration issues: 
+
+- Hard to delete a cached result with complex queries 
+- If one piece of data changes such as a table cell, you need to delete all cached queries that might include the changed cell 
+
+#### Caching at the object level 
+
+See your data as an object, similar to what you do with your application code. Have your application assemble the dataset from the database into a class instace or a data structure(s): 
+- Remove the object from cache if its underlying data has changed 
+- Allows for asynchronous processing: workers assemble objects by consuming the latest cached object 
+
+Suggestions of what to cache: 
+- User sessions
+- Fully rendered web pages
+- Activity streams
+- User graph data 
+
+#### When to update the cache
+
+Since you can only store a limited amount of data in cache, you'll need to determine which cache update strategy works best for your use case. 
+
+#### Cache-aside
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/cache-aside.png)
+
+The application is responsible for reading and writing from storage. The cache does not interact with storage directly. The application does the following: 
+
+- Look for entry in cache, resulting in a cache miss 
+- Load entry from the database
+- Add entry to cache
+- Return entry 
+
+Subsequent reads of data added to cache are faster. Cache-aside is also referred to as lazy loading. Only requested data is cached, which avoids filling up the cache with data that isn't requested. 
+
+##### Disadvantage(s): cache-aside
+- Each cache miss results in three trips, which cause a noticeable delay. 
+- Data can become stale if it is updated in the database. This issue is mitigated by setting a time-to-live (TTL) which forces an update of the cache entry, or by using write-through. 
+- When a node fails, it is replaced by a new, empty node, increasing latency. 
+
+#### Write-through
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/write-through.png)
+
+
+The application uses the cache as the main data store, reading and writing data to it, while the cache is responsible for reading and writing to the database: 
+
+- Application adds/updates entry in cache
+- Cache synchronously writes entry to data store
+- Return
+
+Write-through is a slow overall operation due to the write operation, but subsequent reads of just written data are fast. Users are generally more tolerant of latency when updating data than reading data. Data in the cache is not stale. 
+
+##### Disadvantage(s): write through
+- When a new node is created due to failure or scaling, the new node will not cache entries until the entry is updated in the database. Cache-aside in conjunction with write through can mitigate this issue.
+- Most data written might never be read, which can be minimized with a TTL. 
+
+#### Write-behind (write-back)
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/write-behind.png)
+
+In write-behind, the application does the following: 
+
+- Add/update entry in cache
+- Asynchronously write entry to the data store, improving write performance
+
+##### Disadvantage(s): write behind
+- There could be data loss if the cache goes down prior to its contents hitting the data store 
+- It is more complex to implement than write-behind than it is to implement cache-aside or write-through 
+
+#### Refresh-ahead
+
+You can configure the cache to automatically refresh any recently accessed cache entry prior to its expiration. 
+
+Refresh-ahead can result in reduced latency vs read-through if the cache can accurately predict which items are likely to needed in the future. 
+
+##### Disadvantage(s): refresh-ahead
+- Not accurately predicting which items are likely to be needed in the future can result in reduced performane than without refresh-ahead 
+
+### Disadvantage(s): cache
+- Need to maintain consistency between caches and the source of truth such as the database through cache invalidation
+- Cache invalidation is a difficult problem, there is additional complexity associated with when to update the cache
+- Need to make application changes such as adding Redis or memcached 
+
+
+### Asynchronism
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/asynchronism.png)
+
+Asynchronous workflows help reduce request times for expensive operations that would otherwise be performed in-line. They can also help by doing time-consuming work in advance, such as periodic aggregation of data. 
+
+#### Message queues
+
+Message queues receive, hold, and deliver messages. If an operation is too slow to perform inline, you can use a message queue with the following workflow: 
+
+- An application publishes a job to the queue, then notifies the user of job status
+- A worker picks up the job from the queue, processes it, then signals the job is complete
+
+The user is not blocked and the job is processed in the background. During this time, the client might optionally do a small amount of processing to make it seem like the task has completed. For example, if posting a tweet, the tweet could be instantly posted to your timeline, but it could take some time before your tweet is actually delivered to all of your followers. 
+
+#### Task queues
+
+Task queues receieve tasks and their related data, runs them, then delivers tehir results. They can support scheduling and can be used to run computationally-intensive jobs in the background. 
+
+#### Back pressure
+
+If queues start to grow significantly, the queue size can become larger than memory, resulting in cache misses, disk reads, and even slower performance. Back pressure can help by limiting the queue size, therby maintaining a high throughput rate and good response times for jobs already in the queue. Once the queue fills up, the client gets a server busy or HTTP 503 status to try again later. 
+
+#### Disadvantage(s): asynchronism
+- Use cases such as inexpensive calucations and realtime workflows might be better suited for synchronous operations, as introducing queues can add delays and complexity 
+
+### Hypertext transfer protocal (HTTP)
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/HTTP.png)
+
+### Remote procedure call(RPC)
+
+In an RPC, a client causes a procedure to execute on a different address apce, usually a remote server. The procedure is coded as if it were a local procedure call, abstracting away the details of how to communicate with teh server from the client program. Remote calls are usually slower and less reliable than local calls so it is helpful to distinguise RPC calls from local calls. 
+
+RPC is focused on exposing behaviors. RPCs are often used for performacne reasons with internal communications, as you can hand-craft native calls to better fit your use cases. 
+
+Choose a native library (aka SDK) when: 
+- You know your target platform
+- You want to control how your "logic" is accessed
+- You want to control how error control happens off your library
+- Performance and end user experience is your primary concern 
+
+HTTP APIs following REST tend to be used more often for public APIs
+
+#### Disadvantage(s): RPC
+- RPC clients become tightly coupled to the service implementation
+- A new API must be defined for every new operation or use case
+- It can be difficult to debug RPC 
+- You might not be able to leverage existing technologies out of the box. 
+
+### Representational state transfer (REST)
+
+REST is an architectural style enforcing a client/server model where the client acts on a set of resources managed by the server. The server provides a representation of resources and actions that can either manipulate or get a new representation of resources. All communication must be stateless and cacheable. 
+
+REST is focused on exposing data. It minimizes the coupling between client/server and is often used for public HTTP APIs. REST uses a more generic and uniform method of exposing resources through URIs, representation through headers, and actions through verbs such as GET, POST, PUT, DELETE, and PATCH. Being stateless, REST is great for horizontal scaling and partitioning. 
+
+#### Disadvantage(s): REST
+- With REST being focused on exposing data, it might not be a good fit if resources are not naturally organized or accessed in a simple hierarchy. For example, returning all updated records from the past hour matching a particular set of events is not easily expressed as a path. With REST, it is likely to be implemented with a combination of URI path, query parameters, and possibly the request body. 
+- REST typically relies on a few verbs (GET, POST, PUT, DELETE, and PATCH) which sometimes doesn't fit your use case. For example, moving expired documents to the archive folder might not cleanly fit within these verbs. 
+- Fetching complicated resources with nested hierarchies requires multiple round trips between the client and server to render single views, e.g. fetching content of a blog entry and the comments on that entry. For mobile applications operating in variable network conditions, these multiple roundtrips are highly undesirable. 
+- Over time, more fields might be added to an API response and older clients will receieve all new data fields, even those that they do not need, as a result, it bloats the payload size and leads to larger latencies. 
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/RESTvsRPC.png)
+
+
 
 
