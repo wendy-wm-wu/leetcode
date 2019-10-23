@@ -227,4 +227,58 @@ This is actually a good thing, because it is by avoiding recalculation of those 
 DP is a subtle technique that will require substantial time to sink in. We recommend you take a few hours sometime and watch the videos linked below. They provide a complete grounding in the technique, illustrated with real examples, and present a recipe for figuring out how to generate DP-style solutions on your own.
 
 
+### JavaScript Event Loop
+1. Maintain a queue of tasks
+2. Run a continuous loop that waits synchronously for a task, runs it, and repeats. 
+3. A task is always "run-to-completion" and cannot be pre-empted by any other message. 
+
+#### Motivation
+
+The point of the event loop is to organize the entire program-execution paradigm around asynchronicity. This pays big dividends in terms of responsiveness, freeing up the CPU to attend to other matters (aka being "non-blocking"). This was most useful originally in the context of browser UI's, but now is critical in writing efficent, scalable servers via the Node.js platform. In the latter case, the callbacks that the event loop is managing are related to I/O with resources external to the process -- disk access or network calls to other services. The asynchronicity powered by the Javascript event loop is what gives Node.js its fabled ability to manage 10k concurrent connections as a chat server, in a single process. 
+
+#### Slightly more details
+
+1. JavaScript maintains a queue of messages, which are essentially callbacks 
+2. JavaScript also maintains a call stack, which is a stack of frames for nested function calls that have not yet completed evaluating.
+3. It runs a while loop that waits synchronously for a message, processes the message synchronously, and repeats. 
+
+![alt text](https://github.com/wendy-wm-wu/leetcode/blob/master/eventloop.png)
+
+#### A note on setTimeout
+
+When setTimeout is used, Javascript will wait delay milliseconds before adding the callback to the queue. At that time, if there are still previous messages in the queue, those will be processed first and our callback may end up being called later than delay milliseconds. Thus, delay is not a guaranteed exact delay, but a minimum. 
+
+This is why setting setTimeout on a function with a zero delay will still ensure that the function is called after the current message is finished (and indeed, after everything else that might be in the queue before it). 
+
+### Tuples
+### What's a tuple? A triple? What's the difference between a tuple and a set?
+
+A tuple is an ordered series of values, in a meaningful sequence. 
+
+Tuples are different from simple ordered lists because each index has a specific meaning. 
+
+Tuples are different from sets because the latter are unordered and guarantee uniqueness of the values. 
+
+#### Examples
+
+A coordinate pair is a tuple. The 1st index means "x-coordinate" and the 2nd index means "y-coordinate".
+
+An RGB value is a tuple. The 1st index means "red", the 2nd index means "green", and the 3rd index means "blue". 
+
+#### Triples and beyond
+
+Often, a tuple is a pair of values, but don't be thrown by the "two" sound in "tuple". YOu can have a tuple of any length. A "triple" is a tuple with 3 values, as we saw above. An n-tuple is a tuple of n values, so you can talk about "4-tuples", "5-tuples", and so forth. 
+
+#### Where are they used?
+
+Python has a distinct data type called a tuple. It is often used to return more than one value from a function. Since tuples in Python are immutable, they are also used as dictionary keys. It can be handy to glom together multple fields of an object as its "primary key" so to speak in this way. 
+
+Ruby also has tuples, via a standard library.
+
+JavaScript does not have tuples as such. However, when you return an array from a function and assign each element to a separate variable, you effectively have returned a tuple, because the order matters and each index has a meaning. 
+
+
+
+
+
 
