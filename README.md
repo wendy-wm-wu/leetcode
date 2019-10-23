@@ -277,7 +277,53 @@ Ruby also has tuples, via a standard library.
 
 JavaScript does not have tuples as such. However, when you return an array from a function and assign each element to a separate variable, you effectively have returned a tuple, because the order matters and each index has a meaning. 
 
+### What is the average and worst-case time complexity of access, search, and insertion for common data structures? For each answer, briefly explain why.
 
+#### Arrays
+
+Random Access: O(1)
+Search: O(n)
+	 - best case is O(log n) if array is sorted 
+Insert: O(n)
+Delete: O(n)
+
+#### Queues
+
+Random Access: O(n)
+Search: O(n)
+Insert: O(1)
+Delete: O(1)
+
+To achieve O(1) performance, you can implement a queue as either: 
+- a doubly-linked list, which naturally allows you to manipulate each end as a single operation
+- a "circular array", where you keep track of pointers that tells you where the front and back of the queue reside. The "front" and "back" can float around the array arbitrarily. 
+
+#### Stacks
+
+Random Access: O(n)
+Search: O(n)
+Insert: O(1)
+Delete: O(1)
+
+#### Linked Lists
+
+Random Access: O(n)
+Search: O(n)
+Insert: O(1)
+	- Inserting into a linked list requires re-pointing the previous node (the node before the insertion point) to the inserted node, and pointing the newly-inserted node to the next node. 
+Delete: O(1)
+
+#### Binary Search Trees (BST)
+
+Random Access: O(log n)
+	- access in the common case is often O(n)
+Search: O(log n)
+Insert: O(log n)
+Delete: O(log n)
+
+##### Worst case scenarios for BSTs
+
+The worst-case scenarios for BSTs all involve a completely unbalanced tree, which degenerates into a singly-linked list. In the worst-case scenario, access, search, insertion, and deletion would be O(n). 
 
 
 
