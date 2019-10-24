@@ -404,5 +404,77 @@ For example, solid development teams often have a fairly strict policy of refusi
 
 You should try it! Pure TDD is a bit mind-bending (in a similar veing to trying a pure functional programming language like Haskell). Even if you fall back to the more-common "write tests at about the asme time as writing the code" mode, careful and detailed forethought about the contract of the code you are about to write is an intriguing experience. 
 
+### Is JavaScript a functional language? What does it mean for a language to be "functional"?
 
+A functional programming paradigm emphasizes construction programs from functions, rather than objects (object-oriented paradigm) or lists of instructions (imperative paradigm). 
 
+It's based on the mathematical idea of functions. 
+
+#### Mathematical functions are RELIABLE
+
+Given some INPUT, a valid mathematical function will only map to one OUTPUT.
+
+No matter how many times you supply that input, a given function will keep producing the same output. 
+
+That makes the function reliable and easy to reason about. 
+
+#### Mathetmatical functions are SELF-CONTAINED
+
+Math functions only accept INPUT. 
+
+There is no concept of GLOBAL STATE. They do not refer to values other than the input. 
+
+This aspect of being self-contained means that they are tidy, predictable black boxes. A change in some value outside of teh function will not have an impact on the working of the function. 
+
+#### Mathematical functions have no SIDE EFFECTS
+
+Math functions only evaluate to their OUTPUT. 
+
+Again there is no concept of GLOBAL STATE. They do not affect values outside themselves. 
+
+This aspect of having no side effects means taht they are tidy, predictable black boxes. The workings of the function will not randomly impact values outside the function. 
+
+#### Mathematical functions DO ONE THING
+
+Because math functions are self-contained and have no side effects, they can be understood as doing one thing. They map INPUT to OUTPUT in some predetermined, completely reliable way. The nature and purpose of that mapping might be quite complex, but the function only performs that mapping. 
+
+##### How this applies to programming
+
+The features described above regarding mathematical functions are very useful in the programming world. 
+
+Composing a system from programming functions that are written to behave similarly to mathematical functions means it is a lot easier to reason about that system. 
+
+- There will be fewer bugs.
+- It will be easier to debug the problems that do arise.
+- It will be easier to understand and explain the system to others.
+- It will be easier to safely extend it with new functionality. 
+
+#### This is true even in small programs
+
+Bugs, confusion, and difficulty of extension all happen even in small programs. 
+
+Decomposing your problem solution into a system of small, well-named, single-purpose functions with no side effects will reap benefits even at a small scale. 
+
+#### So, is JavaScript "functional"?
+
+JavaScript is a "multi-paradigm" language. It supports the object-oriented paradigm (albeit in an unusual prototypal-inheritance style) and it of course supports imperative programming. 
+
+It definitely allows you to program in a functional style as well. 
+
+- JavaScript supports passing functions as arguments to other functions.
+- JavaScript also supports lambda functions (anonymous functions)
+	- Lambdas are important because they are a key construct supporting higher-order functions (i.e. functions that can create other functions).
+- JavaScript supports higher-order functions.
+- Javascript supports closures (lambda expressions bound to the current state)
+
+#### It's not completely cut-and-dried...
+
+HOWEVER, here are some things that more "pure" functional languages support that JavaScript does not support: 
+- first-class, deep support for immutability 
+- first-class support for partial application 
+- algebraic data types
+- pattern matching 
+
+#### The short answer is...
+
+Yes, JavaScript supports the functional paradigm.
