@@ -478,3 +478,60 @@ HOWEVER, here are some things that more "pure" functional languages support that
 #### The short answer is...
 
 Yes, JavaScript supports the functional paradigm.
+
+### What's a "declarative" language? 
+
+In "imperative" programming, you specify HOW to get what you want. 
+
+In "declarative" programming, you specify WHAT you want. You don't know or care how it will happen. 
+
+#### Examples of declarative languages
+- HTML
+- SQL
+- ORM's
+- Functional languages
+
+#### HTML is a language? 
+
+Well, HTML doesn't have control flow or overt data processing and it's not Turing complete, so sure, it can be a stretch to call it a full-blown language. But there's a reason why the "L" in "HTML" stands for "Language", right? It's a markup language, yes, so it's a limited domain-specific language, but it is a formally parse-able way of expressing the semantic and visual structure of a document. 
+
+There's a lot of imperative logic hidden behind HTML5 tags such as <video> or form field constraint validation.
+
+More broadly, the way that HTML is rendered (in conjunction with CSS) is fantastically complex. As a programmer, you enjoy the benefit of an enormous amount of programming logic that resides behind this declarative markup language. 
+
+#### How is that different from just using an app like Word?
+
+A declarative language is still a language. Even though Word can visually style your document in a way that is similar to HTML... you don't programmatically parse a Word doc to produce its result. Instead, you manipulate a GUI. It isn't a language. 
+
+#### SQL is declarative?
+
+A SQL statement can look like it's specifying imperative logic... do exactly this, then that, then this other thing:
+
+```
+SELECT * FROM books WHERE author = "George R.R. Martin";
+```
+
+This kind of looksl ike imperative logic...?
+
+However, it's not. You're really specifying what you are looking for (including the location(s) of what you are looking for). You are delegating to the SQL enging the exact details of how it is looked up. 
+
+To take a simple case, for the same query, the SQL engine might decide to perform a full table scan or it might choose to use an index (assuming the presence of a relevant index). You might think it would always use an index if it were available, but for very small tables, it might not choose to do so.
+
+You can see the "query plan" for a given query by executing EXPLAIN PLAN.
+
+#### Wait, how is that different from what an interpreter does? 
+
+You might say that any compiler or interpreter translates from your higher-level, imperative instructions into lower-level instructions that are harder for you to write or understand. Abstracting away that low-level complexity has been key to increasing programmer productivity for a long time. So -- how is this different from SQL, say? 
+
+The difference is that a declarative language gives you no way to write in the imperative style. You aren't asking the interpreter or engine to convert your imperative instructions into a lower-level imperative instructions. You're asking the engine to translate your declarations of what you want produced into whatever happens to produce that output. 
+
+#### Functional languages?
+
+Yes, functional languages can be considered to be a subset of declarative languages. 
+
+In functional languages, you specify the output that you want from each function. You don't care about the implementation of those functions, as long as they relibaly produce the same output for a given input. In that sense, functions are black boxes. 
+
+As such, the implementation can be swapped out by the compiler/interpreter without you caring. 
+
+This is imilar to how you don't really care how SELECT is implemented in SQL, or how <video> is implemented in HTML5. 
+
