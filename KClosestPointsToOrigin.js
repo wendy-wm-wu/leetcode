@@ -23,3 +23,16 @@ Input: points = [[3,3],[5,-1],[-2,4]], K = 2
 Output: [[3,3],[-2,4]]
 (The answer [[-2,4],[3,3]] would also be accepted.)
 */
+
+/**
+ * @param {number[][]} points
+ * @param {number} K
+ * @return {number[][]}
+ */
+var kClosest = function(points, K) {
+  return points.sort((a,b) => distance(a) - distance(b)).slice(0, K);
+};
+
+var distance = function(a) {
+  return a[0] * a[0] + a[1] * a[1];
+}
