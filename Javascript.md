@@ -38,5 +38,5 @@ A prototype is a working object instance. Objects inherit directly from other ob
 
 Instances may be composed from many different source objects, allowing for easy selective inheritance and a flat Prototype delegation hierarchy. In other words, class taxonomies are not an automatic side-effect of prototypal OO: a critical distinction. 
 
-#####
+###### 
 
