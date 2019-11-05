@@ -25,3 +25,32 @@ Input: root = [5,3,6,2,4,null,null,1], k = 3
  1
 Output: 3
 */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function(root, k) {
+  let result = null;
+  let traverse = function(node) {
+      if (!node) {
+          return; 
+      }
+      traverse(node.left);
+      k--;
+      if (k === 0) {
+          result = node.val;
+          return; 
+      }
+      traverse(node.right);
+  }
+  traverse(root);
+  return result;
+};
