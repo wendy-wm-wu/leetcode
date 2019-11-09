@@ -19,3 +19,28 @@ Input: [[1,2],[2,3]]
 Output: 0
 Explanation: You don't need to remove any of the intervals since they're already non-overlapping.
 */
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var eraseOverlapIntervals = function(intervals) {
+  intervals = intervals.sort((a,b) => a[0] !== a[1] ? a[0] - b[0] : a[1] - b[1]);
+  
+  if (intervals.length <= 1) {
+      return 0;
+  }
+  
+  let prev = intervals[0];
+  let count = 0; 
+  for (let i = 1; i < intervals.length; i++) {
+      let curr = intervals[i];
+      
+      if (prev[1] > curr[0]) {
+          count++;
+          prev[1] = Math.min(prev[1], curr[1]);
+      } else {
+          prev = curr;
+      }
+  }
+  return count;
+};
