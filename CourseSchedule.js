@@ -27,35 +27,40 @@ Explanation: There are a total of 2 courses to take.
  */
 var canFinish = function(numCourses, prerequisites) {
   let visiting = new Set();
-  let visited = new Set();
+  let visited = new Set(); 
   let coursesArr = [...Array(numCourses)].map(() => []);
-  
+
+  //each element in arr represents the prereq and you are pushing courses into it 
   for (let [course, prereq] of prerequisites) {
-      coursesArr[prereq].push(course);
+    coursesArr[prereq].push(course);
   }
-  
-  for (let i = 0; i < numCourses; i++) {
-      if (!dfs(i)) {
-          return false;
-      }
+  //iterate thru num courses and if applying dfs returns false, return false
+  for (let i = 0; i < numCourses.length; i++) {
+    if (!dfs(i)) {
+      return false;
+    }
   }
   return true;
-  
-  function dfs(course) {
-      if (visited.has(course)) {
-          return true;
+
+  let dfs = function(course) {
+    if (!visiting.has(course)) {
+      return false;
+    }
+    if (visited.has(course)) {
+      return true; 
+    }
+    visiting.add(course);
+    //course here is a value.. so iterating thru the array for a specific tuple/array in coursesArr and checking if all of them are not cyclic 
+    for (let v of coursesArr[course]) {
+      if (!dfs(v)) {
+        return false;
       }
-      if (visiting.has(course)) {
-          return false;
-      }
-      visiting.add(course);
-      for (let c of coursesArr[course]) {
-          if (!dfs(c)) {
-              return false;
-          }
-      }
-      visiting.delete(course);
-      visited.add(course);
-      return true;
+    }
+    //if no cycle
+    visiting.delete(course);
+    visited.add(course);
+    return true; 
   }
+  //return true if passes all dfs which means not cyclic 
+
 };

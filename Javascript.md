@@ -38,5 +38,11 @@ A prototype is a working object instance. Objects inherit directly from other ob
 
 Instances may be composed from many different source objects, allowing for easy selective inheritance and a flat Prototype delegation hierarchy. In other words, class taxonomies are not an automatic side-effect of prototypal OO: a critical distinction. 
 
-#
+### What's the difference between a variable that is: ```null```, ```undefined``` or ```undeclared```?
+
+Null is a value of a variable and is a type of object. 
+
+Undefined is a variable that has been declared but not value exists and is a type of itself "undefined" 
+
+Undeclared variables is a variable that has been declared without ```var``` keyword. 
 
