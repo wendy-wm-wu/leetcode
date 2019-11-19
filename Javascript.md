@@ -71,5 +71,69 @@ forEach() may be preferable when you’re not trying to change the data in your 
 And map() might be preferable when changing or altering data. Not only is it faster but it returns a new Array. 
 
 
+## Other Questions
+
+### Javascript Questions
+Explain prototype (In javascript)
+Explain the prototypal chain
+Explain to ‘this’ to me
+Explain call, bind and apply and their differences
+what is closure?
+What are the benefits of the arrow function?
+What are the different Javascript patterns? Classes, shared etc.
+Explain the factory and singleton patterns?
+What is the virtual DOM?
+What are the limitations of AJAX?
+What is a pure function?
+
+### React Questions
+What is the difference between state and props?
+What are react hooks;
+What is the context API?
+What is the flux pattern?
+Why use Redux vs context API?
+What is a dumb component?
+Why would you use TS over Javascript?
+In react if you omit the ‘key’ word what will happen? (components are destroyed and then recreated)
+
+### Node type Questions
+What is a middle ware
+What is a promise
+How do you use promise right after each other? (chaining)
+How do you do parallel promises? (promise.all)
+How do you manage routes in express?
+What is the body parser?
+How do you handle CORS?
+DataBase Questions
+What is clustering in mongodb?
+What is an embedded doc in mongodb?
+What the difference between restful API’s and CRUD? (trick question)
+What is normalization in DBMS?
+How would you modal a facebook relation between two people? (table joins)
+
+### CSS Questions
+Whats the difference between block and inline block?
+What are the disadvantages of Float?
+What is Flexbox CSS?
+What is CSS Grid?
+What are the difference from Flexbox and CSS Grid
+What is the difference between display:none and visibility:hidden656
+How do you scale images responsively in CSS?
+What is the difference between border box and box sizing?
+HTML Questions
+What do you use async/defer for?
+What can you store in Data-Attributes
+
+### Build tool Questions
+Why do you need to use babel?
+Can you use babel to change PHP to JS?
+
+### Git Questions
+What is rebase and why would you use it?
+Other Questions
+How does the internet works?
+What is in the head of the HTML request/response body? (edited) 
+
+
 
 
