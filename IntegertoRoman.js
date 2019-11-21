@@ -19,3 +19,35 @@ C can be placed before D (500) and M (1000) to make 400 and 900.
 Given an integer, convert it to a roman numeral. Input is guaranteed to be within the range from 1 to 3999.
 */
 
+var intToRoman = function(num) {
+  if (num == 0) {
+      return null;
+  }
+  let str = '';
+  for (let i = 0; i < mapping.length; i++) {
+      let [n, roman] = mapping[i];
+      
+      while (num >= n) {
+          str += roman;
+          num -= n;
+      }
+  }
+  return str;
+};
+
+
+const mapping = [
+      [1000, 'M'],
+      [900, 'CM'],
+      [500, 'D'],
+      [400, 'CD'],
+      [100, 'C'],
+      [90, 'XC'],
+      [50, 'L'],
+      [40, 'XL'],
+      [10, 'X'],
+      [9, 'IX'],
+      [5, 'V'],
+      [4, 'IV'],
+      [1, 'I']
+];
