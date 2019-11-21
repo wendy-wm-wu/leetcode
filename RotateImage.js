@@ -40,3 +40,16 @@ rotate the input matrix in-place such that it becomes:
   [16, 7,10,11]
 ]
 */
+var rotate = function(matrix) {
+  //reverse the matrix
+  matrix = matrix.reverse();
+  
+  for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j <= i; j++) {
+          [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+      }
+  }
+  return matrix;
+  //swap positions of the bottom left and top right corners
+  //return matrix
+};
