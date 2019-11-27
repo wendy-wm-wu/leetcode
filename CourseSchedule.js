@@ -61,6 +61,6 @@ var canFinish = function(numCourses, prerequisites) {
     visited.add(course);
     return true; 
   }
-  //return true if passes all dfs which means not cyclic 
+  //return true if passes all dfs which means not cyclic  
 
 };
