@@ -15,6 +15,35 @@ Output: 1
  * @param {number[][]} intervals
  * @return {number}
  */
+
+// var minMeetingRooms = function(intervals) {
+//     if (!intervals.length) {
+//         return 0; 
+//     }
+//     let starts = [];
+//     let ends = [];
+
+//     for (let i = 0; i < intervals.length; i++) {
+//         let current = intervals[i];
+//         starts.push(current[0]);
+//         ends.push(current[1]); 
+//     }
+
+//     starts.sort((a,b) => a - b);
+//     ends.sort((a,b) => a - b); 
+
+//     for (let i = 0; i < starts.length; i++) {
+//         if (starts[i + 1] > ends[i]) {
+//             return false; 
+//         }
+//     }
+//     return true; 
+// }
+
+
+
+
+
 var minMeetingRooms = function(intervals) {
   if (!intervals.length) {
       return 0;
