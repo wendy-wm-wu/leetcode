@@ -19,3 +19,28 @@ var reverseList = function(head) {
   }
   return prev; 
 }
+
+/*
+null     1  ->    2     -> 3 -> 4 -> 5 -> null 
+prev    curr    curr.next
+
+null <-   1      2 -> 3 -> 4 -> 5 -> null 
+prev    curr   
+
+null <-   1      2 -> 3 -> 4 -> 5 -> null 
+         prev    curr    
+
+null <-   1  <-  2     3 -> 4 -> 5 -> null 
+               prev    curr  
+               
+null <-   1  <-  2  <-  3       4 -> 5 -> null 
+                       prev    curr  
+                       
+null <-   1  <-  2  <-  3  <-  4      5 -> null 
+                             prev    curr  
+                             
+null <-   1  <-  2  <-  3  <-  4  <-  5      null 
+                                     prev    curr  
+
+return prev
+*/
