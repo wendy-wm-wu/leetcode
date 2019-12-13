@@ -17,26 +17,26 @@ Output: -1
  * @return {number}
  */
 var coinChange = function(coins, amount) {
-  let res = Infinity;
-  
-  //we want to get the highest options first so we can sort 
-  coins = coins.sort((a,b) => b - a); 
-  
-  let helper = function(idx, amount, count) {
-      const coin = coins[idx];
-      
-      //smallest coin
-      if (idx === coins.length - 1) {
-          if (amount % coin === 0) {
-              res = Math.min(res, count + Math.floor(amount/coin))
-          }
-      } else {
-          for (let i = Math.floor(amount/coin); i >= 0 && count + i < res; i--) {
-              helper(idx + 1, amount - coin * i, count + i);
-          }
-      }
-  }
-  helper(0, count, 0); 
-  
-  return res === Infinity? -1 : res; 
+    
+    let helper = function(amountLeft, coins, currentIndex) {
+        currentIndex = currentIndex || 0; 
+
+        //we hit the amount spot on 
+        if (amountLeft === 0) return 1;
+        //used too many coins 
+        if (amoutnLeft < 0) return 0; 
+        //we're out of coins
+        if (currentIndex >= denominations.length) return 0; 
+        //choose a current coin
+        var currentCoin = coins[currentIndex]; 
+
+        //check possibilities for each number of times to use currentCoin 
+        var numPossibilities = 0; 
+        while (amountLeft >= 0) {
+            numPossibilities += helper(amountLeft, coins, currentIndex + 1); 
+            amountLeft -= currentCoin; 
+        }
+        return numPossibilities; 
+    }
+    return helper(coins, amount); 
 };
