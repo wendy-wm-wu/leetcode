@@ -16,27 +16,25 @@ Output: -1
  * @param {number} amount
  * @return {number}
  */
-var coinChange = function(coins, amount) {
-    
-    let helper = function(amountLeft, coins, currentIndex) {
+var coinChange = function(amountLeft, coins, currentIndex) {
         currentIndex = currentIndex || 0; 
 
         //we hit the amount spot on 
         if (amountLeft === 0) return 1;
         //used too many coins 
-        if (amoutnLeft < 0) return 0; 
+        if (amountLeft < 0) return 0; 
         //we're out of coins
-        if (currentIndex >= denominations.length) return 0; 
+        if (currentIndex === coins.length) return 0; 
         //choose a current coin
         var currentCoin = coins[currentIndex]; 
 
         //check possibilities for each number of times to use currentCoin 
         var numPossibilities = 0; 
         while (amountLeft >= 0) {
-            numPossibilities += helper(amountLeft, coins, currentIndex + 1); 
+            numPossibilities += coinChange(amountLeft, coins, currentIndex + 1); 
             amountLeft -= currentCoin; 
         }
         return numPossibilities; 
-    }
-    return helper(coins, amount); 
 };
+
+console.log(coinChange([1,2,3],4));
