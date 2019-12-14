@@ -4,20 +4,25 @@ let string = 'cat';
 //output: cat, cta, atc, act, tac, tca 
 
 function getPermutations(string) {
-  let permutations = new Set(); 
-  let copy = string.slice();
-
-  let helper = function(curr, stringRemaining) {
-    if (curr.length === string.length) {
-      permutations.add(curr); 
-    }
-    for (let i = 0; i < copy.length; i++) {
-      let letter = copy[i];
-      helper(curr + letter, copy.slice(0, i) + copy.slice(i + 1);
-    }
+  // base case
+  if (string.length <= 1) {
+    return new Set(string); 
   }
-  helper('', copy);
-  return permutations;
-}
+
+  let allCharsExceptLast = string.slice(0, -1);
+  let lastChar = string[string.length - 1];
+
+  let permutationsExceptLast = getPermutations(allCharsExceptLast); 
+
+  let permutations = new Set(); 
+  
+  permutationsExceptLast.forEach(function(item) {
+    for (let position = 0; position <= allCharsExceptLast.length; position++) {
+      let permutation = item.slice(0, position) + lastChar + item.slice(position); 
+      permutations.add(permutation);
+    }
+  });
+  return permutations; 
+ }
 
 console.log(getPermutations(string)); 
