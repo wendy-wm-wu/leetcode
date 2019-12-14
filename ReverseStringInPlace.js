@@ -3,7 +3,8 @@ let string = 'reversethis'
 //important: strings are immutable in JavaScript
 
 function reverseStringInPlace(string) {
-  let array = string.slice('');
+  let array = string.split('');
+  
   let left = 0; 
   let right = string.length - 1; 
 
