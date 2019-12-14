@@ -5,24 +5,21 @@ let string = 'cat';
 
 function getPermutations(string) {
   // base case
-  if (string.length <= 1) {
-    return new Set(string); 
-  }
+  let output = [];
+  let copy = string.slice(); 
 
-  let allCharsExceptLast = string.slice(0, -1);
-  let lastChar = string[string.length - 1];
-
-  let permutationsExceptLast = getPermutations(allCharsExceptLast); 
-
-  let permutations = new Set(); 
-  
-  permutationsExceptLast.forEach(function(item) {
-    for (let position = 0; position <= allCharsExceptLast.length; position++) {
-      let permutation = item.slice(0, position) + lastChar + item.slice(position); 
-      permutations.add(permutation);
+  let helper = function(curr, remaining) {
+    if (curr.length === string.length) {
+      output.push(curr); 
+      return; 
     }
-  });
-  return permutations; 
+    for (let i = 0; i < remaining.length; i++) {
+      let char = remaining[i]; 
+      helper(curr + char, remaining.slice(0, i) + remaining.slice(i + 1)); 
+    }
+  }
+  helper("", copy); 
+  return output; 
  }
 
 console.log(getPermutations(string)); 
