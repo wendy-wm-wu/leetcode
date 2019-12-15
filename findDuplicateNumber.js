@@ -3,7 +3,13 @@ let n = 10;
 
 function findDuplicateNumber(array, n) {
   let sum = ((n * n) + n)/2; 
-  console.logs(sum); 
+  let arraySum = 0;
+
+  for (let i = 0; i < array.length; i++) {
+    let num = array[i];
+    arraySum += num; 
+  }
+  return arraySum - sum; 
 }
 
 console.log(findDuplicateNumber(array, n)); 
