@@ -25,24 +25,21 @@ Explanation: The answer is "wke", with the length of 3.
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-  let max = 0; 
-  let curr = 0; 
-  let hash = {};
-   
-   //edge case
-   if (s.length < 2) {
-       return s.length;
-   }
-   for (let i = 0; i < s.length; i++) {
-       if (hash[s[i]] == null) {
-           curr++; 
-       } else {
-           curr = Math.min(i - hash[s[i]], curr + 1);
-       }
-       max = Math.max(max, curr); 
-       hash[s[i]] = i; 
-   }
-   return max;
+    // { letter : last seen in string - index } 
+    let windowCharsMap = {};
+    let windowStart = 0;
+    let maxLength = 0; 
+    
+    for (let i = 0; i < s.length; i++) {
+        let endChar = s[i];
+        
+        if (windowCharsMap[endChar] >= windowStart) {
+            windowStart = windowCharsMap[endChar] + 1; 
+        }
+        windowCharsMap[endChar] = i; 
+        maxLength = Math.max(maxLength, i - windowStart + 1); 
+    }
+    return maxLength; 
 };
    
 //Time: O(N)
