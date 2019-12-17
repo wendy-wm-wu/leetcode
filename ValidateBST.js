@@ -42,5 +42,17 @@ Explanation: The root node's value is 5 but its right child's value is 4.
  * @return {boolean}
  */
 var isValidBST = function(root) {
-    
+    if (!root) {
+        return true; 
+    }
+    let traverse = function(root, min, max) {
+        if (!root) {
+            return true; 
+        }
+        if ((min !== null && root.val <= min) || (max !== null && root.val >= max)) {
+            return false; 
+        }
+        return traverse(root.left, min, root.val) && traverse(root.right, root.val, max); 
+    }
+    return traverse(root, null, null); 
 };
