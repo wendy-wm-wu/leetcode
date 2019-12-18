@@ -43,6 +43,6 @@ var lengthOfLongestSubstring = function(s) {
 };
    
 //Time: O(N)
-//Space: O(N) - # number of letters in string 
+//Space: O(N)
 
 //hash: { char: index }
