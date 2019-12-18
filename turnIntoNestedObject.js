@@ -23,11 +23,7 @@ function turnIntoNestedObject(obj) {
       if (i === array.length - 1) {
         currObj[array[i]] = obj[key];
       }
-      // if (currObj[array[i]] || i === array.length - 1) {
-      //   currObj[array[i]] = obj[key]; 
-      // } else {
-      //   currObj[array[i]] = {};
-      // }
+  
       currObj = currObj[array[i]];
     }
   }
