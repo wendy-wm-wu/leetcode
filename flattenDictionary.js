@@ -83,7 +83,32 @@ function flattenDictionaryHelper(initialKey, dict, flatDictionary) {
   }
 }
 
-console.log(flattenDictionary(dict));
+function flattenDictionary(dict) {
+  let flatDict = {};
+   
+   for (let i in dict) {
+ 
+     if (typeof dict[i] === "object") {
+       var flatObject = flattenDictionary(dict[i]); 
+       for (var j in flatObject) {
+         if (i === '') {
+           flatDict[`${j}`] = flatObject[j]; 
+         } else if (j === '') {
+           flatDict[`${i}`] = flatObject[j]; 
+         } else {
+           flatDict[`${i}.${j}`] = flatObject[j]; 
+         }
+       }
+     } else {
+       flatDict[i] = dict[i]; 
+     }
+   }
+   return flatDict;  
+ }
+
+ 
+
+console.log(flattenObject(dict));
 
 
 //input1: {"Key1":"1","Key2":{"a":"2","b":"3","c":{"d":"3","e":"1"}}}
@@ -105,27 +130,4 @@ if value is not an object
     add to dict
   if not ""
     concat keys and add to dict
-
-input:  dict = {
-            "Key1" : "1",
-            "Key2" : {
-                "a" : "2",
-                "b" : "3",
-                "c" : {
-                    "d" : "3",
-                    "e" : {
-                        "" : "1"       //if key is empty, exclude from output
-                    }
-                }
-            }
-        }
-
-output: {
-            "Key1" : "1",
-            "Key2.a" : "2",
-            "Key2.b" : "3",
-            "Key2.c.d" : "3",
-            "Key2.c.e" : "1"
-        }
-
 */
