@@ -1,46 +1,61 @@
-function movesToSolve(puzzle) {
+/*
+board =
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
 
-  let hash = {}; 
-  let target = ''; //sort puzzle 2d array 
-  let min = Number.MAX_SAFE_INTEGER; //set to highest possible value 
-  for (let i = 0; i < puzzle.length; i++) {
-      for (let j = 0; j < puzzle[0].length; j++) {
-          target += `,${puzzle[i][j]}`
-          if (puzzle[i][j] === 0) {
-              findSolutions(i, j, 0); 
-              return; 
-          }
-      }
-  }
-  target = target.split(',').sort((a, b) => a - b).slice(1).join(','); 
+Given word = "ABCCED", return true.
+Given word = "SEE", return true.
+Given word = "ABCB", return false.
+*/
 
+let board =
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+];
 
-  function findSolutions(row, col, length) {
-    let counter = 0; 
-    let compareStr = ''; 
-    for (let row = 0; row < puzzle.length; row++) {
-      for (let col = 0; col < puzzle[0].length; col++) {
-       compareStr += `,${puzzle[row][col]}`;
-      }
-    }
-    compareStr = compareStr.slice(1); 
-    if (hash[compareStr] !== undefined && length >= hash[compareStr]) return; 
-    hash[compareStr] = length; 
+let word = "ABCB"; 
 
-    if (compareStr === target) {
-      min = Math.min(min, length); 
+var exist = function(board, word) {
+  var verify = function(i, j, board, index) {  //index of word 
+    if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || index > word.length || board[i][j] !== word[index]) {
       return; 
     }
-    for (let move of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
-      const [r, c] = [row + move[0], col + move[1]]; 
-      if (r < 0  || c < 0 || r === puzzle.length || c === puzzle[0].length) continue; 
-      [puzzle[row][col], puzzle[r][c]] = [puzzle[r][c], puzzle[row][col]]; 
-      findSolutions(r, c, length + 1); 
-      [puzzle[row][col], puzzle[r][c]] = [puzzle[r][c], puzzle[row][col]]; 
+    index++; 
+    board[i][j] = '#'; 
+    if (index === word.length) {
+      return true;  
     }
- }
+
+    if (verify(i + 1, j, board, index)) {
+      return true; 
+    }
+    if (verify(i - 1, j, board, index)) {
+      return true; 
+    }
+    if (verify(i, j - 1, board, index)) {
+      return true; 
+    }
+    if (verify(i, j + 1, board, index)) {
+      return true; 
+    }
+    board[i][j] = word[index--]; 
+    return false; 
+  }
+
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[0].length; j++) {
+      if (verify(i, j, board, 0)) {
+        return true; 
+      }
+    }
+  }
+  return false; 
 }
 
+console.log(exist(board, word)); 
 
-var puzzle = [[1, 6, 3], [8, 7, 2], [4, 0, 5]]; 
-console.log(movesToSolve(puzzle)); 
