@@ -33,25 +33,28 @@ Output: 0
 Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
 */
 var ladderLength = function(beginWord, endWord, wordList) {
-  if (!wordList.length) return 0; 
+  if (!wordList.length) {
+    return 0; 
+  }
   let len = 1; 
   let queue = [beginWord]; 
-  let dict = new Set(wordList);
+  let dict = new Set(wordList); 
   let seen = new Set(queue); 
 
+
   while (queue.length > 0) {
-    let next = []; //next word in the queue 
+    let next = []; //next word in queue
     for (let v of queue) {
       if (v === endWord) {
         return len; 
       }
-      let arr = v.split(''); 
+      let arr = v.split('');
       for (let i = 0; i < arr.length; i++) {
         for (let num = 0; num < 26; num++) {
           arr[i] = String.fromCharCode(97 + num); 
           let nv = arr.join(''); 
           if (!seen.has(nv) && dict.has(nv)) {
-            seen.add(nv);
+            seen.add(nv); 
             next.push(nv); 
           }
         }
@@ -61,7 +64,7 @@ var ladderLength = function(beginWord, endWord, wordList) {
     queue = next; 
     len++; 
   }
-  return 0; 
+  return len; 
 }
 
 console.log(ladderLength('hit', 'cog', ["hot","dot","dog","lot","log"]));
