@@ -27,15 +27,14 @@ Since the list has two middle nodes with values 3 and 4, we return the second on
  * }
  */
 /**
- * @param {ListNode} head
- * @return {ListNode}
- */
+*/
+
 var middleNode = function(head) {
-  let fast = head;
-  let slow = head;
+  let fast = head; 
+  let slow = head; 
   while (fast !== null && fast.next !== null) {
-      fast = fast.next.next; 
-      slow = slow.next; 
+    fast = fast.next.next;
+    slow = slow.next; 
   }
   return slow; 
 };

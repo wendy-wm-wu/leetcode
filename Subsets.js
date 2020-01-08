@@ -23,17 +23,21 @@ Output:
  * @return {number[][]}
  */
 var subsets = function(nums) {
-  let results = [];
-  
-  let dfs = function(curr, index) {
-      results.push(curr);
-      for (let i = index; i < nums.length; i++) {
-          dfs([...curr, nums[i]], i + 1);
-      }
+  let subsets = [];
+
+  let backtrack = function(curr, start) {
+    subsets.push(curr);
+    for (let i = start; i < nums.length; i++) {
+      backtrack([...curr, nums[i]], i + 1); 
+    }
   }
-  dfs([], 0) 
-  return results;
+  backtrack([], 0);
+  return subsets;
+
 };/**
+
+
+
 * @param {number[]} nums1
 * @param {number[]} nums2
 * @return {number}
