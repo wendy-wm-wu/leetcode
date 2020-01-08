@@ -30,3 +30,23 @@ var subarraySum = function(nums, k) {
   }
   return count;
 };
+
+
+/*
+Input:nums = [1,1,1], k = 2
+Output: 2
+
+count = 2;
+sum = 3; 
+
+sum - k 
+3 - 2 = 1; 
+
+new Map = { '0' : 1, '1': 1, }
+map.set(0, 1); 
+
+if val is in set, add it to counter 
+
+otherwise add to set 
+
+*/
