@@ -34,11 +34,13 @@ var letterCombinations = function(digits) {
     return [];
   }
   if (digits.length === 1) {
-    return map[digits[0]];
+    return map[digits];
   }
   let output = [];
   let set1 = letterCombinations(digits.substr(0, 1));
+  console.log('set1', set1); 
   let set2 = letterCombinations(digits.substr(1));
+  console.log('set2', set2);
   
   for (let i = 0; i < set1.length; i++) {
     for (let j = 0; j < set2.length; j++) {
@@ -47,6 +49,8 @@ var letterCombinations = function(digits) {
   }
   return output; 
 }
+
+console.log(letterCombinations('234')); 
 
 //Strategy
 //edge case(s)

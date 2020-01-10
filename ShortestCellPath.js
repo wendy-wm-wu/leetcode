@@ -38,6 +38,9 @@ All sr, sc, tr, tc are valid locations in the grid, grid[sr][sc] = grid[tr][tc] 
 [output] integer
 */
 
+var grid = [[1, 1, 1, 1], [0, 0, 0, 1], [1, 0, 1, 1]];
+var sr = 0, sc = 0, tr = 2, tc = 0; 
+
 function shortestCellPath(grid, sr, sc, tr, tc) {
   let path = 0;
   let queue = [];
@@ -67,6 +70,8 @@ function shortestCellPath(grid, sr, sc, tr, tc) {
   }
 return -1; 
 }
+
+console.log(shortestCellPath(grid, sr, sc, tr, tc)); 
 
 /*
 sr = starting row
