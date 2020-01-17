@@ -24,3 +24,54 @@ while this one is not:
 
 In total, there is only one magic square inside the given grid.
 */
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var numMagicSquaresInside = function(grid) {
+  let row = grid.length;
+  let col = grid[0].length;
+  let count = 0; 
+  for (let r = 1; r < row - 1; r++) {
+      for (let c = 1; c < col - 1; c++) {
+          if (grid[r][c] === 5) {
+              if (!countSquares(r, c, grid)) continue; 
+              
+              if (grid[r - 1][c - 1] + grid[r + 1][c + 1] !== 10) continue; 
+              if (grid[r - 1][c + 1] + grid[r + 1][c - 1] !== 10) continue;
+              if (grid[r - 1][c] + grid[r + 1][c] !== 10) continue;
+              if (grid[r][c - 1] + grid[r][c + 1] !== 10) continue; 
+              if (grid[r - 1][c - 1] + grid[r][c - 1] + grid[r + 1][c - 1] !== 15) continue;
+              if (grid[r - 1][c + 1] + grid[r][c + 1] + grid[r + 1][c + 1] !== 15) continue; 
+              if (grid[r - 1][c - 1] + grid[r - 1][c] + grid[r - 1][c + 1] !== 15) continue;
+              if (grid[r + 1][c - 1] + grid[r + 1][c] + grid[r + 1][c + 1] !== 15) continue; 
+              count += 1; 
+          }
+      }
+  }
+  return count; 
+}
+
+const countSquares = (row, col, grid) => {
+  let set = new Set(); 
+  for (let i = -1; i < 1; i++) {
+      for (let j = -1; j < 1; j++) {
+          if (set.has(grid[row + i][col + j]) || grid[row + i][col + j] < 1 || grid[row + i][col + j] > 9) {
+              return false; 
+          } else {
+              set.add(grid[row + i][col + j]);
+          }
+      }
+  }
+  return true; 
+}
+
+/*
+let count = 0; 
+check if 3 x 3 square is possible (use set)
+  check if 3 x 3 all equal the same value 
+  iterate until not possible 
+return count 
+
+*/
