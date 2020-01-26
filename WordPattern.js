@@ -31,9 +31,11 @@ var wordPattern = function(pattern, str) {
   let arr = str.split(' ');
   for (let i = 0; i < arr.length; i++) {
     if (hash[pattern[i]]) {
-      if (hash[pattern[i]] !== arr[i]) return false; 
+      if (hash[pattern[i]] !== arr[i]) {
+        return false; 
+      }
     } else {
-      if (Object.values(keys).indexOf(arr[i]) !== -1) {
+      if (Object.values(hash).indexOf(arr[i]) !== -1) {
         return false;
       } else {
         hash[pattern[i]] = arr[i];
