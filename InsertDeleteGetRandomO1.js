@@ -33,7 +33,7 @@ RandomizedCollection.prototype.remove = function(val) {
 		this.array.pop();
 		return true;
 	}
-
+  //swap values 
 	[this.array[valIdx], this.array[lastIdx]] = [this.array[lastIdx], this.array[valIdx]];
 	this.array.pop();
 
