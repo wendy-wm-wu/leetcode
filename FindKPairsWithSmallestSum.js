@@ -26,10 +26,11 @@ Explanation: All possible pairs are returned from the sequence: [1,3],[2,3]
 
 
 var kSmallestPairs = function(nums1, nums2, k) {
-  let len1 = nums1.length, len2 = nums2.length; 
-  let arr = new Array(len1).fill(0), res = []; // [0, 0, 0]
+  let len1 = nums1.length, len2 = nums2.length;
+  let arr = new Array(len1).fill(0), res = [];
+  //going to decrease k 
   while (k-- > 0) {
-    let min = Number.MAX_SAFE_INTEGER;
+    let min = Number.SAFE_MAX_INTEGER;
     let index = -1; 
     for (let i = 0; i < len1; i++) {
       if (arr[i] >= len2) {
@@ -41,9 +42,9 @@ var kSmallestPairs = function(nums1, nums2, k) {
       }
     }
     if (index === -1) {
-      break; 
+      break;
     }
-    res.push([nums1[index], nums2[arr[index]]]);
+    res.push([nums1[index], nums2[arr[index]]]); 
     arr[index]++; 
   }
   return res; 
