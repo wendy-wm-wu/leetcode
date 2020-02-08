@@ -42,7 +42,7 @@ function helper(s, start, end, cache = {}) {
     }
   }
   if (!output.length) {
-    output.push(parseInt(s.subString(start, end))); 
+    output.push(parseInt(s.substring(start, end))); 
   }
   cache[key] = output; 
   return output; 
