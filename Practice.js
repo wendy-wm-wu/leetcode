@@ -1,73 +1,83 @@
 /*
-In a given grid of 0s and 1s, we have some starting row and column sr, sc and a target row and column tr, tc. Return the length of the shortest path from sr, sc to tr, tc that walks along 1 values only.
+At a lemonade stand, each lemonade costs $5. 
 
-Each location in the path, including the start and the end, must be a 1. Each subsequent location in the path must be 4-directionally adjacent to the previous location.
+Customers are standing in a queue to buy from you, and order one at a time (in the order specified by bills).
 
-It is guaranteed that grid[sr][sc] = grid[tr][tc] = 1, and the starting and target positions are different.
+Each customer will only buy one lemonade and pay with either a $5, $10, or $20 bill.  You must provide the correct change to each customer, so that the net transaction is that the customer pays $5.
 
-If the task is impossible, return -1.
+Note that you don't have any change in hand at first.
 
-Examples:
+Return true if and only if you can provide every customer with correct change.
 
-input:
-grid = [[1, 1, 1, 1], [0, 0, 0, 1], [1, 1, 1, 1]]
-sr = 0, sc = 0, tr = 2, tc = 0
-output: 8
-(The lines below represent this grid:)
-1111
-0001
-1111
+Example 1:
 
-grid = [[1, 1, 1, 1], [0, 0, 0, 1], [1, 0, 1, 1]]
-sr = 0, sc = 0, tr = 2, tc = 0
-output: -1
-(The lines below represent this grid:)
-1111
-0001
-1011
-Constraints:
+Input: [5,5,5,10,20]
+Output: true
+Explanation: 
+From the first 3 customers, we collect three $5 bills in order.
+From the fourth customer, we collect a $10 bill and give back a $5.
+From the fifth customer, we give a $10 bill and a $5 bill.
+Since all customers got correct change, we output true.
+Example 2:
 
-[time limit] 5000ms
-[input] array.array.integer grid
-1 ≤ arr.length = arr[i].length ≤ 10
-[input] integer sr
-[input] integer sc
-[input] integer tr
-[input] integer tc
-All sr, sc, tr, tc are valid locations in the grid, grid[sr][sc] = grid[tr][tc] = 1, and (sr, sc) != (tr, tc).
-[output] integer
-*/
-var grid = [[1, 1, 1, 1], [0, 0, 0, 1], [1, 0, 1, 1]];
-var sr = 0, sc = 0, tr = 2, tc = 0; 
+Input: [5,5,10]
+Output: true
+Example 3:
 
-function shortestCellPath(grid, sr, sc, tr, tc) {
-  let path = 0; 
-  //seen 
-  //queue
-  let seen = new Array(grid.length).fill().map(() => Array(grid[0].length).fill(0)); 
-  let node = { r: sr, c: sc, distance: path }; //will be returning path 
-  let queue = [];
-  queue.push(node); 
-  seen[sr][sc] = true; 
+Input: [10,10]
+Output: false
+Example 4:
 
-  while (queue.length > 0) {
-    let current = queue.shift(); 
+Input: [5,5,10,10,20]
+Output: false
+Explanation: 
+From the first two customers in order, we collect two $5 bills.
+For the next two customers in order, we collect a $10 bill and give back a $5 bill.
+For the last customer, we can't give change of $15 back because we only have two $10 bills.
+Since not every customer received correct change, the answer is false.
+*/ 
 
-    if (current.r === tr && current.c === tc) {
-      return current.distance;
+var bills = [5,5,10,10,20];
+
+var lemonadeChange = function(bills) {
+  let count5 = 0;
+  let count10 = 0;
+  let lemonadeCost = 5;  
+
+  for (let i = 0; i < bills.length; i++) {
+    let bill = bills[i]; 
+    if (bill === 5) {
+      count5++; 
+    } else if (bill === 10) {
+      count10++; 
     }
-    let moves = [[current.r + 1, current.c], [current.r - 1, current.c], [current.r, current.c + 1], [current.r, current.c - 1]]; 
-
-    for (let i = 0; i < moves.length; i++) {
-      if (moves[i][0] >= 0 && moves[i][0] < grid.length && moves[i][1] >= 0 && moves[i][1] < grid[0].length && grid[moves[i][0]][moves[i][1]] && !seen[moves[i][0]][moves[i][1]]) {
-        queue.push({ r: moves[i][0], c: moves[i][1], distance: current.distance + 1 });
-        seen[moves[i][0]][moves[i][1]] = true; 
+    if (bill === 20) {
+      if (count10 >= 1 && count5 >= 1) {
+        count10--;
+        count5--; 
+      } else if (count5 >= 3) {
+        count5 -= 3; 
+      } else {
+        return false; 
+      }
+    }
+    if (bill === 10) {
+      if (count5 >= 1) {
+        count5--; 
+      } else {
+        return false; 
       }
     }
   }
-  return -1; 
-  //walk along 1s only 
-  //return - 1 if impossible
+  return true; 
 }
 
-console.log(shortestCellPath(grid, sr, sc, tr, tc)); 
+console.log(lemonadeChange(bills)); 
+
+/*
+collect 5s and 10s for change
+return difference if greater than 5 
+if 20, return 15
+if 10, return 5 
+
+*/
