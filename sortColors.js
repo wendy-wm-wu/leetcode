@@ -16,6 +16,8 @@ First, iterate the array counting number of 0's, 1's, and 2's, then overwrite ar
 Could you come up with a one-pass algorithm using only constant space?
 */
 
+/* Brute Force */ 
+
 var sortColors = function(nums) {
   let count = {};
   for (let i = 0; i < nums.length; i++) {
@@ -41,3 +43,25 @@ var sortColors = function(nums) {
   }
   return nums; 
 };
+
+/* One Pass */ 
+var sortColors = function(nums) {
+  let low = 0;
+  let high = nums.length - 1; 
+  let temp;
+  let i = 0; 
+  while (i <= high) {
+    if (nums[i] === 0) {
+      temp = nums[i]; 
+      nums[i] = nums[low]; 
+      nums[low] = temp; 
+      low++; 
+    } else if (nums[i] === 2) {
+      temp = nums[i];
+      nums[i] = nums[high];
+      nums[high] = temp; 
+      high--; 
+    }
+    i++; 
+  }
+}
