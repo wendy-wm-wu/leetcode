@@ -46,22 +46,15 @@ var sortColors = function(nums) {
 
 /* One Pass */ 
 var sortColors = function(nums) {
-  let low = 0;
-  let high = nums.length - 1; 
-  let temp;
-  let i = 0; 
-  while (i <= high) {
+  let low = 0, high = nums.length - 1; 
+  for (let i = 0; i <= high; i++) {
     if (nums[i] === 0) {
-      temp = nums[i]; 
-      nums[i] = nums[low]; 
-      nums[low] = temp; 
+      [nums[i], nums[low]] = [nums[low], nums[i]]; 
       low++; 
     } else if (nums[i] === 2) {
-      temp = nums[i];
-      nums[i] = nums[high];
-      nums[high] = temp; 
+      [nums[i], nums[high]] = [nums[high], nums[i]]; 
       high--; 
+      i--; 
     }
-    i++; 
   }
 }
