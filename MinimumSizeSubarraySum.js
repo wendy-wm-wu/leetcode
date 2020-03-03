@@ -17,13 +17,13 @@ If you have figured out the O(n) solution, try coding another solution of which 
  */
 var minSubArrayLen = function(s, nums) {
     let min = Infinity; 
+    let i = 0; //two pointers
     let sum = 0;
-    let i = 0;
     for (let j = 0; j < nums.length; j++) {
       sum += nums[j];
       while (sum >= s) {
-        min = Math.min(min, j - i + 1); 
-        sum -= nums[i++]; 
+        min = Math.min(min, j - i + 1); //get min length 
+        sum -= nums[i++]; //you're not increasing the count but increasing the index from the front of the array 
       }
     }
     return min === Infinity ? 0 : min; 
